@@ -32,6 +32,10 @@ summary {
   display: block;
 }
 
+.rakbadasidortext {
+  text-align: justify;
+}
+
 audio {
   display: inline-block;
   vertical-align: baseline;
