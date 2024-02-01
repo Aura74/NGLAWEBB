@@ -1270,6 +1270,11 @@ a.logo:hover {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.9);
 }
+@media (max-width: 1450px) {
+  .logobilden {
+    display: none;
+  }
+}
 
 .main-nav {
   width: 100%;
