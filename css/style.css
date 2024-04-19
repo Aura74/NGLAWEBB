@@ -1515,13 +1515,16 @@ a.logo:hover {
 }
 
 .main-nav.js-transparent {
-  -webkit-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
-  -moz-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
-  -o-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
-  -ms-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
+  -webkit-transition: all 0.27s cubic-bezier(0, 0, 0.59, 1);
+  -moz-transition: all 0.27s cubic-bezier(0, 0, 0.56, 1);
+  -o-transition: all 0.27s cubic-bezier(0, 0, 0.59, 1);
+  -ms-transition: all 0.27s cubic-bezier(0, 0, 0.57, 1);
   transition: all 0.27s cubic-bezier(0, 0, 0.58, 1);
 }
 
+body.transparent-nav .main-nav.transparent {
+  background: rgba(0, 0, 0, 0.315) !important;
+}
 .page-section,
 .small-section {
   width: 100%;
