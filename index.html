@@ -1,727 +1,540 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
   <head>
-    <link rel="icon" 
-      type="image/png" 
-      href="img/icons/icons8-albanian-lek-48 (1).png">
-    <title>LA-Studio</title>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LA-Studio — Webbyrån</title>
+    <meta
+      name="description"
+      content="LA Studio — din partner för digitala lösningar och webbutveckling. Vi skapar hållbara, användarcentrerade webbplatser."
+    />
+    <link rel="icon" type="image/png" href="img/icons/lagul2.png" />
+
+    <!-- Tema + effektläge sätts före paint så sidan inte blinkar fel läge -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var theme = localStorage.getItem("theme");
+        if (!theme) {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        if (theme === "dark") root.setAttribute("data-theme", "dark");
+
+        var perf = localStorage.getItem("ngla:perfMode");
+        if (!perf) {
+          var weak =
+            (navigator.hardwareConcurrency || 8) <= 4 ||
+            (navigator.deviceMemory || 8) <= 4 ||
+            (navigator.connection &&
+              (navigator.connection.saveData ||
+                /^(2g|slow-2g)$/.test(navigator.connection.effectiveType || "")));
+          var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          perf = reduced ? "essential" : weak ? "balanced" : "cinematic";
+          root.setAttribute("data-perf-auto", "");
+        }
+        root.setAttribute("data-perf", perf);
+      })();
+    </script>
 
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="appear-animate">
-    <div class="page" id="top">
-      <section
-        class="home-section bg-dark-alfa-30 parallax-2"
-        style="background: black"
-        id="home"
-      >
-        <video autoplay muted loop type="video/mp4" id="background-video"
-          src="stad2.mp4"
-          style="position: absolute; top: 0px; left: 0px"
-          alt="En bild"
-        /></video>
-        <!-- <img
-          src="img/287098.jpg"
-          style="position: absolute; top: 0px; left: 0px"
-          alt="En bild"
-        /> -->
+  <body>
+    <a class="skip-link" href="#intro">Hoppa till innehåll</a>
 
-        <div class="js-height-full container">
-          <div class="home-content">
-            <div class="home-text" >
-              <h1 class=" font-alt mb-50 mb-xs-30 mt-70 mt-sm-0" style="font-size: 10rem; background-color: rgba(0, 0, 0, 0.397); border-radius: 0%;">
-                webbyrån
-              </h1>
+    <!-- ===== Navigering ===== -->
+    <nav class="main-nav is-transparent" id="mainNav" aria-label="Huvudmeny">
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo" aria-label="LA Studio — till toppen">
+          <img src="img/icons/lagul2.png" alt="LA Studio" />
+        </a>
 
-              <h2 class="hs-line-8 mb-80 mb-xs-40" style="font-size: 5rem; background-color: rgba(0, 0, 0, 0.397); border-radius: 0%;">LARS ASPLUND</h2>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#intro">Om LA Studio</a></li>
+          <li><a href="#getStarted">Tjänster</a></li>
+          <li><a href="#transfer">Koncept</a></li>
+          <li><a href="#portfolio">Kundcase</a></li>
+          <li><a href="#demo">Exempel</a></li>
+          <li><a href="#pricing">Pris</a></li>
+          <li><a href="#about">Kontakt</a></li>
+        </ul>
 
-              <div >
-                <button
-                  
-                  class="btn btn-mod btn-w btn-large btn-round getStarted"
-                >
-                  KLICKA HÄR
+        <div class="nav-actions">
+          <button
+            class="icon-btn"
+            id="themeToggle"
+            type="button"
+            aria-label="Växla mellan ljust och mörkt läge"
+          >
+            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </svg>
+            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
+            </svg>
+          </button>
+
+          <button
+            class="icon-btn hamburger"
+            id="menuOpen"
+            type="button"
+            aria-label="Öppna meny"
+            aria-expanded="false"
+            aria-controls="mobilePanel"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobilmeny -->
+    <div class="mobile-overlay" id="mobileOverlay" hidden></div>
+    <aside class="mobile-panel" id="mobilePanel" aria-label="Mobilmeny" hidden>
+      <div class="mobile-panel-head">
+        <img src="img/icons/lagul2.png" alt="" class="mobile-panel-logo" />
+        <button class="icon-btn" id="menuClose" type="button" aria-label="Stäng meny">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <ul class="mobile-links">
+        <li><a href="#intro">Om LA Studio</a></li>
+        <li><a href="#getStarted">Tjänster</a></li>
+        <li><a href="#transfer">Koncept</a></li>
+        <li><a href="#portfolio">Kundcase</a></li>
+        <li><a href="#demo">Exempel</a></li>
+        <li><a href="#pricing">Pris</a></li>
+        <li><a href="#about">Kontakt</a></li>
+      </ul>
+    </aside>
+
+    <!-- ===== Hero ===== -->
+    <header class="hero" id="home">
+      <video
+        class="hero-video"
+        id="heroVideo"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="img/hero-poster.jpg"
+        src="stad2-web.mp4"
+      ></video>
+      <div class="hero-fallback" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <h1 class="hero-title font-alt">webbyrån</h1>
+        <p class="hero-sub font-alt">Lars Asplund</p>
+        <button class="btn btn-light" type="button" data-scroll="#intro">
+          Klicka här
+        </button>
+      </div>
+
+      <a href="#intro" class="scroll-down" aria-label="Scrolla ned"></a>
+    </header>
+
+    <main>
+      <!-- ===== Om / Team ===== -->
+      <section class="page-section" id="intro">
+        <div class="container">
+          <img class="intro-logo" src="img/icons/lagul2.png" alt="LA Studio" data-reveal />
+
+          <div class="intro-grid">
+            <blockquote data-reveal>
+              <p>Din partner för digitala lösningar och webbutveckling!</p>
+              <footer>Lars Asplund / är här</footer>
+            </blockquote>
+            <p class="intro-text" data-reveal style="--reveal-delay: 0.1s">
+              På LA Studio tror vi på att skapa hållbara och användarcentrerade
+              lösningar. Vi tror att varje projekt är unikt och kräver en
+              skräddarsydd strategi. Vi sätter användarna i fokus och strävar
+              efter att skapa en enkel, intuitiv och attraktiv
+              användarupplevelse.
+            </p>
+            <p class="intro-text" data-reveal style="--reveal-delay: 0.2s">
+              Vi tror också på öppenhet och kommunikation. Vi håller dig alltid
+              informerad om projektets framsteg och är alltid tillgängliga för
+              att besvara dina frågor och lyssna på dina idéer.
+            </p>
+          </div>
+
+          <div class="team-grid">
+            <div class="team-item" data-reveal>
+              <div class="team-item-image">
+                <img src="img/pepole/pngegg - 2024-01-14T150604.823.png" alt="Embed" loading="lazy" />
+                <div class="team-item-detail">
+                  <h4 class="font-alt">Embed</h4>
+                  <p>Lars Asplund</p>
+                  <a href="#getStarted">Learn more</a>
+                </div>
+              </div>
+              <div class="team-item-descr font-alt">
+                <div class="team-item-name">Embed</div>
+                <div class="team-item-role">Embed in your code</div>
+              </div>
+            </div>
+
+            <div class="team-item" data-reveal style="--reveal-delay: 0.1s">
+              <div class="team-item-image">
+                <img src="img/pepole/pngegg - 2024-01-14T150625.371.png" alt="Share" loading="lazy" />
+                <div class="team-item-detail">
+                  <h4 class="font-alt">Share</h4>
+                  <p>Lars Asplund</p>
+                  <a href="#portfolio">Learn more</a>
+                </div>
+              </div>
+              <div class="team-item-descr font-alt">
+                <div class="team-item-name">Share</div>
+                <div class="team-item-role">Share your git.</div>
+              </div>
+            </div>
+
+            <div class="team-item" data-reveal style="--reveal-delay: 0.2s">
+              <div class="team-item-image">
+                <img src="img/pepole/pngegg - 2024-01-14T150616.788.png" alt="Transfer" loading="lazy" />
+                <div class="team-item-detail">
+                  <h4 class="font-alt">Transfer</h4>
+                  <p>Lars Asplund</p>
+                  <a href="#transfer">Learn more</a>
+                </div>
+              </div>
+              <div class="team-item-descr font-alt">
+                <div class="team-item-name">Transfer</div>
+                <div class="team-item-role">Transfer the css</div>
+              </div>
+            </div>
+
+            <div class="team-item" data-reveal style="--reveal-delay: 0.3s">
+              <div class="team-item-image">
+                <img src="img/pepole/pngegg - 2024-01-14T150639.145.png" alt="Portfolio" loading="lazy" />
+                <div class="team-item-detail">
+                  <h4 class="font-alt">Master of html</h4>
+                  <p>Lars Asplund</p>
+                  <a href="#demo">Learn more</a>
+                </div>
+              </div>
+              <div class="team-item-descr font-alt">
+                <div class="team-item-name">Portfolio</div>
+                <div class="team-item-role">Our sites.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- ===== Hörnstenar ===== -->
+      <section class="page-section" id="getStarted">
+        <div class="container">
+          <h2 class="section-title font-alt" data-reveal>Våra hörnstenar</h2>
+
+          <div class="features-grid">
+            <div class="feature" data-reveal>
+              <div class="feature-icon">❤</div>
+              <h3 class="feature-title font-alt">Kreativitet</h3>
+              <p class="feature-text">
+                Vi brinner för att skapa unika och användarvänliga webbplatser
+                och digitala lösningar som står ut från mängden. Genom att
+                kombinera våra kreativa tankar med din vision skapar vi en unik
+                onlinenärvaro som ger dig en konkurrensfördel.
+              </p>
+            </div>
+            <div class="feature" data-reveal style="--reveal-delay: 0.1s">
+              <div class="feature-icon">☢</div>
+              <h3 class="feature-title font-alt">Teknisk expertis</h3>
+              <p class="feature-text">
+                Vi är stolta över vår tekniska kompetens och vår förmåga att
+                arbeta med de senaste verktygen och teknologierna. Vårt team av
+                erfarna utvecklare och designers är alltid uppdaterade med de
+                senaste trenderna och bästa praxis.
+              </p>
+            </div>
+            <div class="feature" data-reveal style="--reveal-delay: 0.2s">
+              <div class="feature-icon">💥</div>
+              <h3 class="feature-title font-alt">Engagemang</h3>
+              <p class="feature-text">
+                För oss handlar det om mer än bara att skapa webbplatser – det
+                handlar om att bygga långsiktiga relationer med våra kunder. Vi
+                är engagerade i ditt projekt från början till slut och strävar
+                efter att överträffa dina förväntningar.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Koncept (mörk) ===== -->
+      <section class="page-section section-dark" id="transfer">
+        <div class="container">
+          <div class="split">
+            <div class="split-media" data-reveal>
+              <img src="img/Projekt/presentation-1454403_1280.png" alt="Presentation av vårt koncept" loading="lazy" />
+            </div>
+            <div class="split-text" data-reveal style="--reveal-delay: 0.15s">
+              <h3 class="font-alt">Vårt koncept</h3>
+              <p>
+                Vi på LA Studio tror på kraften i digitala innovationer och hur
+                de kan omvandla och förbättra företag och organisationer i
+                dagens snabbt föränderliga värld.
+              </p>
+              <p>
+                Vårt koncept bygger på tre grundläggande principer: kreativitet,
+                teknisk expertis och engagemang.
+              </p>
+              <button class="btn btn-outline-light" type="button" data-scroll="#pricing">
+                Get started
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== LA-Studio ===== -->
+      <section class="page-section" id="portfolio">
+        <div class="container">
+          <div class="split split-reverse">
+            <div class="split-text" data-reveal>
+              <h3 class="font-alt">LA-Studio</h3>
+              <p>
+                Behöver du en hemsida till företaget eller dig själv? Jag
+                hjälper dig att ta fram en ny webbplats som tar hänsyn till dina
+                behov. En enkel eller större hemsida?
+              </p>
+              <p>
+                Alla sidor är responsiva. Jag skapar väldesignade webbplatser
+                som tar hänsyn till ditt behov och hjälper dig att nå ut till
+                fler potentiella kunder.
+              </p>
+              <p>
+                Upplev framtidens arbetsmetoder idag! Vår endagsutbildning i
+                artificiell intelligens (AI) är utformad för att ge dig eller
+                dina medarbetare praktiska färdigheter och insikter.
+              </p>
+              <button class="btn btn-outline" type="button" data-scroll="#pricing">
+                Get started
+              </button>
+            </div>
+            <div class="split-media" data-reveal style="--reveal-delay: 0.15s">
+              <img src="img/laptop7.png" alt="Laptop med en av våra hemsidor" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" />
+
+      <!-- ===== Skapade hemsidor ===== -->
+      <section class="page-section" id="demo">
+        <div class="container">
+          <h2 class="section-title font-alt" data-reveal>Skapade hemsidor</h2>
+          <p class="section-lead" data-reveal>
+            Här kan du se de hemsidor som skapats under årens lopp
+          </p>
+        </div>
+
+        <div class="masonry" data-reveal>
+          <a href="https://witty-plant-0caac5803.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/boderoakhigh.JPG" alt="Border Oak" loading="lazy" /></a>
+          <img src="img/Projekt/gubben.JPG" alt="Projekt" loading="lazy" />
+          <img src="img/Projekt/betalningVited.JPG" alt="Betalningssida" loading="lazy" />
+          <img src="img/Projekt/blueCv.JPG" alt="CV-sida" loading="lazy" />
+          <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/lilaHigh.JPG" alt="Projekt" loading="lazy" /></a>
+          <a href="https://lastudio.se/" target="_blank" rel="noopener">
+            <img src="img/Projekt/gooniesNYSmalBred.JPG" alt="Goonies-sida" loading="lazy" /></a>
+          <img src="img/Projekt/100Procent.JPG" alt="Projekt" loading="lazy" />
+          <a href="https://kind-beach-09d973303.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/mindyhög.JPG" alt="Projekt" loading="lazy" /></a>
+          <img src="img/Projekt/labloggLila.JPG" alt="Blogg" loading="lazy" />
+          <img src="img/Projekt/todo.JPG" alt="Todo-app" loading="lazy" />
+          <img src="img/Projekt/segelbat.JPG" alt="Segelbåt" loading="lazy" />
+          <img src="img/Projekt/labobred.JPG" alt="Projekt" loading="lazy" />
+          <a href="https://lastudio.se/" target="_blank" rel="noopener">
+            <img src="img/Projekt/gooniesNY1.JPG" alt="Goonies-sida" loading="lazy" /></a>
+          <img src="img/lapp.JPG" alt="Projekt" loading="lazy" />
+          <img src="img/Projekt/hotel.JPG" alt="Hotellsida" loading="lazy" />
+          <img src="img/Projekt/labohigh2.JPG" alt="Projekt" loading="lazy" />
+          <img src="img/Projekt/la23long.JPG" alt="Projekt" loading="lazy" />
+          <a href="https://lemon-meadow-077f12703.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/frisk.JPG" alt="Friskvårdssida" loading="lazy" /></a>
+          <img src="img/Projekt/lalang2.JPG" alt="Projekt" loading="lazy" />
+          <a href="https://thankful-plant-0c9845803.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/cartoonSok.JPG" alt="Söksida" loading="lazy" /></a>
+          <img src="img/Projekt/imageGalleyZelda.JPG" alt="Bildgalleri" loading="lazy" />
+          <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
+            <img src="img/Projekt/lila2high.JPG" alt="Projekt" loading="lazy" /></a>
+          <img src="img/Projekt/anstallda.JPG" alt="Anställda" loading="lazy" />
+          <a href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net" target="_blank" rel="noopener">
+            <img src="img/Projekt/laovarderlig.JPG" alt="Projekt" loading="lazy" /></a>
+        </div>
+      </section>
+
+      <!-- ===== Pris ===== -->
+      <section class="small-section section-dark-lighter" id="pricing">
+        <div class="container">
+          <h2 class="head-title font-alt">Vad kostar det</h2>
+          <p class="head-sub font-alt">Nästan ingenting!</p>
+          <p class="head-text">
+            Jag ger dig och ditt företag rätt förutsättningar att nå ut till
+            kunder på ett modernt, användarvänligt och professionellt sätt.
+          </p>
+        </div>
+      </section>
+
+      <section class="page-section">
+        <div class="container">
+          <div class="pricing-grid">
+            <div class="pricing-item" data-reveal>
+              <div class="pricing-icon">
+                <img src="img/icons/icons8-collaboration-50.png" alt="" loading="lazy" />
+              </div>
+              <div class="pricing-title">Silver</div>
+              <ul class="pricing-list font-alt">
+                <li>Egen domänadress</li>
+                <li>Professionell hemsida</li>
+                <li>E-postadresser</li>
+                <li>Webbhotell i molnet</li>
+                <li>SSL-certifikat (https)</li>
+              </ul>
+              <div class="pricing-num"><sup>$</sup>499</div>
+              <div class="pricing-per">per month</div>
+              <div class="pricing-cta">
+                <button class="btn btn-dark" type="button" data-scroll="#about">
+                  now or never
+                </button>
+              </div>
+            </div>
+
+            <div class="pricing-item" data-reveal style="--reveal-delay: 0.1s">
+              <div class="pricing-icon">
+                <img src="img/icons/icons8-wedding-day-50.png" alt="" loading="lazy" />
+              </div>
+              <div class="pricing-title">Gold</div>
+              <ul class="pricing-list font-alt">
+                <li>Egen domänadress</li>
+                <li>15000 photos (jpeg)</li>
+                <li>Foton från proffsfotograf</li>
+                <li>Filmproduktion</li>
+                <li>Sökmotoroptimering (SEO)</li>
+              </ul>
+              <div class="pricing-num"><sup>$</sup>1099</div>
+              <div class="pricing-per">per month</div>
+              <div class="pricing-cta">
+                <button class="btn btn-dark" type="button" data-scroll="#about">
+                  now or never
+                </button>
+              </div>
+            </div>
+
+            <div class="pricing-item is-main" data-reveal style="--reveal-delay: 0.2s">
+              <div class="pricing-icon">
+                <img src="img/icons/icons8-vampire-50.png" alt="" loading="lazy" />
+              </div>
+              <div class="pricing-title">Ultimate</div>
+              <ul class="pricing-list font-alt">
+                <li>Egen domänadress</li>
+                <li><strong>Synlighet i sociala medier</strong></li>
+                <li>lifetime friendship</li>
+                <li>Google-anpassningar</li>
+                <li>Webbhotell i molnet</li>
+              </ul>
+              <div class="pricing-num"><sup>$</sup>2499</div>
+              <div class="pricing-per">per month</div>
+              <div class="pricing-cta">
+                <button class="btn btn-dark" type="button" data-scroll="#about">
+                  now or never
                 </button>
               </div>
             </div>
           </div>
-          <div class="">
-            <a href="#intro" class="scroll-down">  
-            </a>
-          </div>
-        </div>
-      </section>
-      
-      
-
-      <nav class="main-nav dark transparent stick-fixed">
-        <div class="full-wrapper">
-          <div class="nav-logo-wrap">
-            <a href="#top" class="logo">
-              <!-- YXAN --------------------------------------------------------- -->
-              <img class="logobilden" src="img/icons/lagul2.png" alt="" />
-            </a>
-          </div>
-          <div class="mobile-nav"></div>
-          <div class="inner-nav desktop-nav">
-            <ul class="clearlist">
-              <li><a href="https://www.google.com">om la studio</a></li>
-              <li><a href="#embed">tjänster</a></li>
-              <li><a href="#share">studios</a></li>
-              <li><a href="#transfer">Songs</a></li>
-              <li><a href="#portfolio">kundcase</a></li>
-              <li><a href="#demo">exempel</a></li>
-              <li><a href="#pricing">pris</a></li>
-              <li><a href="#about">kontakt</a></li>
-              <li><a href="http://google.com" target="_blank">SÖK</a></li>
-
-              <li class="hideOnMobile">
-                <!-- <a href="https://www.google.com" target="_self">
-                  <img style="height: 50px" src="img/icons/icons8-developer-64.png"/></a> -->
-
-                  <a href="https://www.google.com" target="_self">
-                    <img style="height: 50px" src="img/icons/icons8-source-code-64.png"/></a>
-              </li>
-              <li class="hideOnMobile"></li>
-            </ul>
-          </div>
-        <!-- </div> -->
-        </div>
-      </nav>
-
-      <section class="page-section" id="intro">
-        <div class="container relative">
-          <!-- <h2 class="section-title font-alt align-left mb-70 mb-sm-40">
-            la studio
-          </h2> -->
-          <img src="img/icons/lagul2.png" alt="" />
-
-          <div class="section-text mb-50 mb-sm-20">
-            <div class="row">
-              <div class="col-md-4 rakbadasidortext">
-                <blockquote>
-                  <p>
-                    Din partner för digitala lösningar och webb- utveckling!
-                  </p>
-                  <footer>Lars Asplund / är här</footer>
-                </blockquote>
-              </div>
-
-              <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30 rakbadasidortext">
-                På LA Studio tror vi på att skapa hållbara och användarcentrerade lösningar. Vi tror att varje projekt är unikt och kräver en skräddarsydd strategi. Vi sätter användarna i fokus och strävar efter att skapa en enkel, intuitiv och attraktiv användarupplevelse.
-              </div>
-
-              <div class="col-md-4 col-sm-6 mb-sm-50 mb-xs-30 rakbadasidortext">
-                Vi tror också på öppenhet och kommunikation. Vi håller dig alltid informerad om projektets framsteg och är alltid tillgängliga för att besvara dina frågor och lyssna på dina idéer.
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-3 mb-xs-30 wow fadeInUp">
-              <div class="team-item">
-                <div class="team-item-image" style="cursor: pointer">
-                  <img  src="img/pepole/pngegg - 2024-01-14T150604.823.png" alt="En bild" />
-                  <div class="team-item-detail">
-                    <h4 class="font-alt normal">Embed</h4>
-                    <p>Lars Asplund</p>
-                    <div class="team-social-links">
-                      <a href="#embed">Learn more</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-item-descr font-alt">
-                  <div class="team-item-name">Embed</div>
-                  <div class="team-item-role">Embed in your code</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 mb-xs-30 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="team-item">
-                <div class="team-item-image" style="cursor: pointer">
-                  <img src="img/pepole/pngegg - 2024-01-14T150625.371.png" alt="En bild" />
-                  <div class="team-item-detail">
-                    <h4 class="font-alt normal">Share</h4>
-
-                    <p>Lars Asplund</p>
-
-                    <div class="team-social-links">
-                      <a href="#share">Learn more</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-item-descr font-alt">
-                  <div class="team-item-name">Share</div>
-
-                  <div class="team-item-role">Share your git.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 mb-xs-30 wow fadeInUp" data-wow-delay="0.2s">
-              <div class="team-item">
-                <div class="team-item-image" style="cursor: pointer">
-    
-                  <img  src="img/pepole/pngegg - 2024-01-14T150616.788.png" alt="En bild" />
-
-                  <div class="team-item-detail">
-                    <h4 class="font-alt normal">Transfer</h4>
-
-                    <p>Lars Asplund</p>
-
-                    <div class="team-social-links">
-                      <a href="#transfer">Learn more</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="team-item-descr font-alt">
-                  <div class="team-item-name">Transfer</div>
-
-                  <div class="team-item-role">Transfer the css</div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team item -->
-            <!-- Team item -->
-            <div class="col-sm-3 mb-xs-30 wow fadeInUp">
-              <div class="team-item">
-                <div class="team-item-image" style="cursor: pointer">
-                  <img src="img/pepole/pngegg - 2024-01-14T150639.145.png" alt="En bild" />
-
-                  <div class="team-item-detail">
-                    <h4 class="font-alt normal">Master of html</h4>
-
-                    <p>Lars Asplund</p>
-
-                    <div class="team-social-links">
-                      <a href="#portfolio">Learn more</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="team-item-descr font-alt">
-                  <div class="team-item-name">Portfolio</div>
-
-                  <div class="team-item-role">Our sites.</div>
-                </div>
-              </div>
-            </div>
-            <!-- End Team item -->
-          </div>
-        </div>
-      </section>
-      <!-- End About Section -->
-
-      
-      <!-- Divider -->
-      <hr class="mt-0 mb-0" />
-      <!-- End Divider -->
-      <!-- Features Section -->
-      <section class="page-section" id="getStarted">
-        <div class="container relative">
-          <h2 class="section-title font-alt mb-70 mb-sm-40">Våra hörnstenar</h2>
-
-          <!-- Features Grid -->
-          <div class="row multi-columns-row alt-features-grid">
-            <!-- Features Item -->
-            <div class="col-sm-6 col-md-4 col-lg-4">
-              <div class="alt-features-item align-center">
-                <div class="alt-features-icon">
-                  ❤
-                </div>
-                <h3 class="alt-features-title font-alt">Kreativitet:</h3>
-                <div class="alt-features-descr align-left rakbadasidortext">
-                  <p class="rakbadasidortext">Vi brinner för att skapa unika och användarvänliga webbplatser och digitala lösningar som står ut från mängden. Genom att kombinera våra kreativa tankar med din vision skapar vi en unik online närvaro som ger dig ett konkurrensfördel.</p>
-                </div>
-              </div>
-            </div>
-            <!-- End Features Item -->
-            <!-- Features Item -->
-            <div class="col-sm-6 col-md-4 col-lg-4">
-              <div class="alt-features-item align-center">
-                <div class="alt-features-icon">
-                  ☢
-                </div>
-                <h3 class="alt-features-title font-alt">Teknisk Expertis:</h3>
-                <div class="alt-features-descr align-left ">
-                  <p class="rakbadasidortext">Vi är stolta över vår tekniska kompetens och vår förmåga att arbeta med de senaste verktygen och teknologierna. Vårt team av erfarna utvecklare och designers är alltid uppdaterade med de senaste trenderna och bästa praxis för att säkerställa.</p>
-                </div>
-              </div>
-            </div>
-            <!-- End Features Item -->
-            <!-- Features Item -->
-            <div class="col-sm-6 col-md-4 col-lg-4">
-              <div class="alt-features-item align-center">
-                <div class="alt-features-icon">
-                  💥
-                </div>
-                <h3 class="alt-features-title font-alt">Engagemang:</h3>
-                <div class="alt-features-descr align-left">
-                  <p class="rakbadasidortext">För oss handlar det om mer än bara att skapa webbplatser – det handlar om att bygga långsiktiga relationer med våra kunder. Vi är engagerade i ditt projekt från början till slut och strävar efter att överträffa dina förväntningar. Vi lyssnar på dina behov och mål.</p>
-                </div>
-              </div>
-            </div>
-            <!-- End Features Item -->
-          </div>
-          <!-- End Features Grid -->
         </div>
       </section>
 
-      <hr class="mt-0 mb-0" />
-
-      <section class="page-section bg-dark" id="transfer">
-        <div class="container relative">
-          <div class="row">
-            <div class="col-md-7 mb-sm-40">
-
-              <img src="img/Projekt/presentation-1454403_1280.png" alt="En bild" class="wow fadeInUp" />
-            </div>
-
-            <div class="col-md-5 col-lg-4 col-lg-offset-1">
-              <!-- About Project -->
-              <div class="text">
-                <h3 class="font-alt mb-30 mb-xxs-10 white">Vårt Koncept</h3>
- 
-                <p class="white rakbadasidortext" style="opacity: 0.8">
-                  Vi på LA Studio tror på kraften i digitala innovationer och hur de kan omvandla och förbättra företag och organisationer i dagens snabbt föränderliga värld. 
-                </p>
-                <p class="white rakbadasidortext" style="opacity: 0.8">
-                  Vårt koncept bygger på tre grundläggande principer: kreativitet, teknisk expertis och engagemang.
-                </p>
-
-
-                <div class="mt-40">
-                  <button
-                    class="btn btn-mod btn-border-w btn-round btn-medium getStarted"
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </div>
-              <!-- End About Project -->
-            </div>
+      <!-- ===== Kontakt ===== -->
+      <section class="small-section section-dark-lighter" id="about">
+        <div class="container about-row">
+          <div>
+            <h2 class="head-title font-alt">About me</h2>
+            <p class="head-sub font-alt">The coolest place in the history</p>
+          </div>
+          <div class="about-mail font-alt">
+            <a href="mailto:lars.asplund@hotmail.com">email: lars.asplund@hotmail.com</a>
           </div>
         </div>
       </section>
-      <!-- End Section -->
-      <!-- Divider -->
-      <hr class="mt-0 mb-0" />
-      <!-- End Divider -->
-      <!-- Section -->
-      <section class="page-section" id="portfolio">
-        <div class="container relative">
-          <div class="row">
-            <div class="col-md-5 col-lg-4 mb-sm-40">
-              <!-- About Project -->
-              <div class="text">
-                <h3 class="font-alt mb-30 mb-xxs-10">LA-Studio</h3>
-                <p class="rakbadasidortext">
-                  Behöver du en hemsida till företaget eller dig själv? Jag hjälper dig att ta fram en ny webbplats som tar hänsyn till dina behov. En enkel eller större hemsida?  
-                </p>
-                <p class="rakbadasidortext">
-                  Alla sidor är responsiva. Jag skapar väldesignade webbplatser i wordpress som tar hänsyn till ditt behov, och hjälper dig att nå ut till fler potentiella kunder. 
+    </main>
 
-                </p>
-
-                <p class="rakbadasidortext">
-                  Upplev framtidens arbetsmetoder idag! Vår endagsutbildning i artificiell intelligens (AI) är utformad för att ge dig eller dina medarbetare praktiska färdigheter och insikter i hur AI.
-
-                </p>
-              
-
-                <div class="mt-40">
-                  <button
-                    class="btn btn-mod btn-border btn-round btn-medium getStarted"
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </div>
-              <!-- End About Project -->
-            </div>
-
-            <div class="col-md-7 col-lg-offset-1">
-
-              <img src="img/laptop7.png" alt="En bild" class="wow fadeInUp" />
-            </div>
-          </div>
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <div class="container">
+        <a href="#home" class="footer-logo" data-scroll="#home">
+          <img src="img/axe1.png" width="78" height="36" alt="LA Studio" loading="lazy" />
+        </a>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/" title="Facebook" target="_blank" rel="noopener">
+            <img src="img/icons/icons8-facebook-48.png" alt="Facebook" loading="lazy" /></a>
+          <a href="https://www.twitter.com" title="Twitter" target="_blank" rel="noopener">
+            <img src="img/icons/icons8-twitter.gif" alt="Twitter" loading="lazy" /></a>
+          <a href="https://www.instagram.com" title="Instagram" target="_blank" rel="noopener">
+            <img src="img/icons/icons8-instagram-48.png" alt="Instagram" loading="lazy" /></a>
+          <a href="https://www.youtube.com/" title="Youtube" target="_blank" rel="noopener">
+            <img src="img/icons/icons8-youtube-48.png" alt="Youtube" loading="lazy" /></a>
         </div>
-      </section>
-      <!-- End Section -->
-      <!-- Divider -->
-      <hr class="mt-0 mb-0" />
-      <!-- End Divider -->
-      <!-- Portfolio Section -->
-      <section class="page-section pb-0" id="demo">
-        <div class="relative">
-          <h2 class="section-title font-alt mb-70 mb-sm-40">
-            skapade hemsidor
-          </h2>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-8 col-md-offset-2">
-                <div class="section-text align-center mb-70 mb-xs-40">
-                  Här kan du se de hemsidor som skapats under årens lopp
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            * {
-              box-sizing: border-box;
-            }
-
-            body {
-              margin: 0;
-              font-family: Arial;
-            }
-
-            .header {
-              text-align: center;
-              padding: 32px;
-            }
-
-            .row {
-              display: -ms-flexbox; /* IE10 */
-              display: flex;
-              -ms-flex-wrap: wrap; /* IE10 */
-              flex-wrap: wrap;
-              padding: 0 4px;
-            }
-            .column {
-              -ms-flex: 25%; /* IE10 */
-              flex: 25%;
-              max-width: 25%;
-              padding: 0 4px;
-            }
-
-            .column img {
-              margin-top: 8px;
-              vertical-align: middle;
-              width: 100%;
-            }
-            @media screen and (max-width: 800px) {
-              .column {
-                -ms-flex: 50%;
-                flex: 50%;
-                max-width: 50%;
-              }
-            }
-            @media screen and (max-width: 600px) {
-              .column {
-                -ms-flex: 100%;
-                flex: 100%;
-                max-width: 100%;
-              }
-            }
-          </style>
-          <!-- Photo Grid -->
-          <div class="row wow fadeInUp">
-            <div class="column">
-              <a href="https://witty-plant-0caac5803.4.azurestaticapps.net/">
-              <img src="img/Projekt/boderoakhigh.JPG" style="width: 100%; border: 3px solid black !important;" /></a>
-
-              <img src="img/Projekt/gubben.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <img src="img/Projekt/betalningVited.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <img src="img/Projekt/blueCv.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/">
-              <img src="img/Projekt/lilaHigh.JPG" style="width: 100%; border: 3px solid black !important;" /></a>
-              
-              <a href="https://lastudio.se/">
-              <img src="/img/Projekt/gooniesNYSmalBred.JPG" style="width: 100%; border: 3px solid black !important;" /></a>
-            </div>
-            
-            <div class="column">
-              <img src="img/Projekt/100Procent.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <a href="https://kind-beach-09d973303.4.azurestaticapps.net/">
-              <img
-                src="img/Projekt/mindyhög.JPG"
-                style="width: 100%; border: 3px solid black !important;"
-              /></a>
-
-              <img src="img/Projekt/labloggLila.JPG" style="width: 100%; border: 3px solid black !important;" />
-              <img src="img/Projekt/todo.JPG" style="width: 100%; border: 3px solid black !important;" />
-              <img
-                src="img/Projekt/segelbat.JPG"
-                style="width: 100%; border: 3px solid black !important;"
-              />
-              <img src="img/Projekt/labobred.JPG" style="width: 100%; border: 3px solid black !important;" />
-            </div>
-            <div class="column" >
-              
-              <a href="https://lastudio.se/">
-              <img src="img/Projekt/gooniesNY1.JPG" style="width: 100%; border: 3px solid black !important;"/></a>
-
-              <img src="img/lapp.JPG" style="width: 100%; border: 3px solid black !important;" />
-              <img src="img/Projekt/hotel.JPG" style="width: 100%; border: 3px solid black !important;" />
-              <img
-                src="img/Projekt/labohigh2.JPG"
-                style="width: 100%; border: 3px solid black !important; "
-              />
-              <img src="img/Projekt/la23long.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <a href="https://lemon-meadow-077f12703.4.azurestaticapps.net/">
-              <img src="img/Projekt/frisk.JPG" style="width: 100%; border: 3px solid black !important;" /></a>
-
-
-              <img src="img/Projekt/lalang2.JPG" style="width: 100%; border: 3px solid black !important;" />
-            </div>
-
-            
-            <div class="column">
-              
-              <a href="https://thankful-plant-0c9845803.4.azurestaticapps.net/">
-              <img
-                src="img/Projekt/cartoonSok.JPG"
-                style="width: 100%; border: 3px solid black !important;"
-              /></a>
-              
-              <img src="img/Projekt/imageGalleyZelda.JPG" style="width: 100%; border: 3px solid black !important;" />
-              
-              <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/"><img src="img/Projekt/lila2high.JPG" style="width: 100%; border: 5px solid black !important;" /></a>
-              
-              
-              <img
-                src="img/Projekt/anstallda.JPG"
-                style="width: 100%"
-              />
-
-              <a href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net">
-              <img src="img/Projekt/laovarderlig.JPG" style="width: 100%; border: 3px solid black !important;" /></a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Portfolio Section -->
-      <!-- Head Section -->
-      <section
-        class="small-section bg-dark-lighter"
-        style="margin-top: 5px"
-        id="pricing"
-      >
-        <div class="relative container align-left">
-          <div class="row">
-            <div class="col-md-8">
-              <h1 class="hs-line-11 font-alt mb-20 mb-xs-0">Vad kostar det</h1>
-              <div class="hs-line-4 font-alt">
-                Nästa ingenting!
-                <p class="rakbadasidortext">
-                  Jag ger dig och ditt företag rätt förutsättningar att vara nå ut till kunder modernt, användarvänligt och proffisionellt sätt. 
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Head Section -->
-      <!-- Section -->
-      <section class="page-section">
-        <div class="container">
-          <!-- Pricing row -->
-          <div class="row multi-columns-row">
-            <!-- Pricing Item -->
-            <div class="col-sm-12 col-md-4 col-lg-4">
-              <div class="pricing-item">
-                <div class="pricing-item-inner">
-                  <div class="pricing-wrap">
-                    <!-- Icon (Simple-line-icons) -->
-                    <div class="pricing-icon">
-                      <img src="img/icons/icons8-collaboration-50.png" alt="">
-                    </div>
-                    <!-- Pricing Title -->
-                    <div class="pricing-title">Silver</div>
-                    <!-- Pricing Features -->
-                    <div class="pricing-features font-alt">
-                      <ul class="sf-list pr-list">
-                        <li>Egen domänadress</li>
-                        <li>Professionell hemsida</li>
-                        <li>E-postadresser</li>
-                        <li>Webhotell i molnetmsida</li>
-                        <li>SSL certifikat (https)</li>
-
-                      </ul>
-                    </div>
-                    <div class="pricing-num"><sup>$</sup>499</div>
-                    <div class="pr-per">per month</div>
-                    <!-- Button -->
-                    <div class="pr-button">
-                      <button class="btn btn-mod getStarted">
-                        now or never
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Pricing Item -->
-            <!-- Pricing Item -->
-            <div class="col-sm-12 col-md-4 col-lg-4">
-              <div class="pricing-item">
-                <div class="pricing-item-inner">
-                  <div class="pricing-wrap">
-                    <!-- Icon (Simple-line-icons) -->
-                    <div class="pricing-icon">
-                      <img src="img/icons/icons8-wedding-day-50.png" alt="">
-                    </div>
-                    <!-- Pricing Title -->
-                    <div class="pricing-title">Gold</div>
-                    <!-- Pricing Features -->
-                    <div class="pricing-features font-alt">
-                      <ul class="sf-list pr-list">
-                        <li>Egen domänadress</li>
-                        <li>15000 photos (jpeg)</li>
-                        <li>Foton från proffsfotograf</li>
-                        <li>Filmproduktion</li>
-                        <li>Sökmotoroptimering (SEO)</li>
-                      </ul>
-                    </div>
-                    <div class="pricing-num"><sup>$</sup>1099</div>
-                    <div class="pr-per">per month</div>
-                    <!-- Button -->
-                    <div class="pr-button">
-                      <button class="btn btn-mod getStarted">
-                        now or never
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Pricing Item -->
-            <!-- Pricing Item -->
-            <div class="col-sm-12 col-md-4 col-lg-4">
-              <div class="pricing-item main">
-                <div class="pricing-item-inner">
-                  <div class="pricing-wrap">
-                    <!-- Icon (Simple-line-icons) -->
-                    <div class="pricing-icon">
-                      <img src="img/icons/icons8-vampire-50.png" alt="">
-                    </div>
-
-                    <!-- Pricing Title -->
-                    <div class="pricing-title">Ultimate</div>
-
-                    <!-- Pricing Features -->
-                    <div class="pricing-features font-alt">
-                      <ul class="sf-list pr-list">
-                        <li>Egen domänadresst</li>
-                        <li><strong>Synlighet i sociala medier</strong></li>
-                        <li>lifetime friendship</li>
-                        <li>Google-anpassningar</li>
-                        <li>Webhotell i molnet</li>
- 
-
-                      </ul>
-                    </div>
-                    <div class="pricing-num"><sup>$</sup>2499</div>
-                    <div class="pr-per">per month</div>
-                    <!-- Button -->
-                    <div class="pr-button">
-                      <button class="btn btn-mod getStarted">
-                        now or never
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End Pricing Item -->
-          </div>
-          <!-- End Pricing row -->
-        </div>
-      </section>
-      <!-- End Section -->
-      <!-- Head Section -->
-      <section class="small-section bg-dark-lighter" id="about">
-        <div class="relative container align-left">
-          <div class="row">
-            <div class="col-md-8">
-              <h1 class="hs-line-11 font-alt mb-20 mb-xs-0">About ME</h1>
-              <div class="hs-line-4 font-alt">
-                The coolest place in the history
-              </div>
-            </div>
-
-            <div class="col-md-4 mt-30">
-              <div class="mod-breadcrumbs font-alt align-right">
-                <a href="mailto:lars.asplund@hotmail.com"
-                  >email: lars.asplund@hotmail.com</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Head Section -->
-      
-      <!-- Footer -->
-      <footer class="page-section bg-gray-lighter footer pb-60">
-        <div class="container">
-          <div class=" mb-30 wow fadeInUp" data-wow-duration="1.5s">
-            <a href="#top"
-              ><img src="img/axe1.png" width="78" height="36" alt=""
-            /></a>
-          </div>
-          <div class="footer-social-links mb-110 mb-xs-60">
-            <a
-              href="https://www.facebook.com/"
-              title="Facebook"
-              target="_blank"
-            >
-            <img src="img/icons/icons8-facebook-48.png" alt="">
-            </a>
-            <a
-              href="https://www.twitter.com"
-              title="Twitter"
-              target="_blank"
-            >
-            <img src="img/icons/icons8-twitter.gif" alt="">
-              
-            </a>
-            <a
-              href="https://www.instagram.com"
-              title="Instagram"
-              target="_blank"
-            >
-            <img src="img/icons/icons8-instagram-48.png" alt="">
-            </a>
-            <a
-              href="https://www.youtube.com/"
-              title="Youtube"
-              target="_blank"
-            >
-            <img src="img/icons/icons8-youtube-48.png" alt="">
-            </a>
-          </div>
-          <div class="footer-text">
-            <div class="footer-copy font-alt">
-              <a href="http://www.larsasplund.com" target="_blank">
-                &copy; Lars Asplund
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <a href="#top" class="link-to-top">
-            <img src="img/icons/icons8-thick-arrow-pointing-up-50.png" alt="">
+        <div class="footer-copy font-alt">
+          <a href="http://www.larsasplund.com" target="_blank" rel="noopener">
+            &copy; Lars Asplund <span id="year"></span>
           </a>
         </div>
-      </footer>
+      </div>
+      <a href="#home" class="link-to-top" aria-label="Till toppen" data-scroll="#home">
+        <img src="img/icons/icons8-thick-arrow-pointing-up-50.png" alt="" loading="lazy" />
+      </a>
+    </footer>
+
+    <!-- ===== Effektväljare ===== -->
+    <div class="perf-widget">
+      <button
+        class="perf-btn"
+        id="perfBtn"
+        type="button"
+        aria-label="Välj effektnivå"
+        aria-expanded="false"
+        aria-controls="perfPopover"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
+          <path d="M1 14h6M9 8h6M17 16h6" />
+        </svg>
+      </button>
+      <div class="perf-popover" id="perfPopover" hidden>
+        <div class="perf-popover-title font-alt">Effekter</div>
+        <button class="perf-option" type="button" data-perf-set="essential">
+          <strong>Essential</strong>
+          <span>Nästan statisk — snabbast, ingen video</span>
+        </button>
+        <button class="perf-option" type="button" data-perf-set="balanced">
+          <strong>Balanced</strong>
+          <span>Mjuka reveals utan tunga effekter</span>
+        </button>
+        <button class="perf-option" type="button" data-perf-set="cinematic">
+          <strong>Cinematic</strong>
+          <span>Allt på — mjuk scroll och full motion</span>
+        </button>
+      </div>
     </div>
-    <script
-      type="text/javascript"
-      src="app.js"
-    ></script>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+    <script src="js/main.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Test-Path \"C:\\\\Users\\\\larsa\\\\.local\\\\bin\\\\claude.exe\")",
+      "Bash(powershell -Command \"Test-Path ''C:\\\\Users\\\\larsa\\\\.local\\\\bin\\\\claude.exe''\")"
+    ]
+  }
+}
