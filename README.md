@@ -41,11 +41,18 @@ NGLAWEBB/
 | 3 | Hörnstenar (`#getStarted`) | 3 features + statistikband med räknare (60+ sajter…) |
 | 4 | Koncept (`#transfer`) | Mörk split-sektion |
 | 5 | LA-Studio (`#portfolio`) | Split-sektion med laptop |
-| 6 | Kundcase (`#demo`) | Filterbar (Alla/Företag/Appar/Kampanj/Blogg) + masonry med case-kort (titel + "Besök sajten →" på hover) |
+| 6 | Kundcase (`#demo`) | Filterbar + masonry med case-kort; klick öppnar **lightbox** (stor bild, `data-tech`-taggar, "Besök sajten", piltangenter) |
 | 7 | Omdömen (`#testimonials`) | Swiper-karusell, 4 citat (demoinnehåll) |
 | 8 | Pris (`#pricing`) | Start 4 900 / Företag 12 900 (Populärast-badge) / Premium 24 900 — "från", engångspris |
-| 9 | Kontakt (`#about`) | Om mig + signaturlogga (las23.JPG), bokningsknapp (stub), kontaktformulär (demo) |
-| 10 | Footer | Yxlogga, sociala ikoner, till-toppen (uppe till höger i footern) |
+| 9 | Kalkylator (`#kalkyl`) | Offertkalkylator: paket + tillval → live-summa → mailto med förifylld förfrågan |
+| 10 | FAQ (`#faq`) | Accordion, 6 vanliga frågor (en öppen åt gången) |
+| 11 | Kontakt (`#about`) | Om mig + signaturlogga, bokningsknapp (stub), kontaktformulär (demo) |
+| 12 | Footer | Textlogga, GitHub + e-postikon (endast verifierade kanaler), till-toppen uppe till höger |
+
+**Tjänster i team-korten:** Design / Utveckling / Synlighet / Support — Dallas-bilderna är medveten charm.
+**E-post:** `lars@lastudio.se` används överallt — **skapa adressen hos domänleverantören före skarp lansering.**
+**SEO:** OG-taggar + twitter-card (domän `lastudio.se` — uppdatera vid flytt) + JSON-LD ProfessionalService.
+**Cinematic-extra:** guld scroll-progressbar + filmgrain på heron.
 
 ## Features i js/main.js
 

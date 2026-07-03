@@ -1151,19 +1151,23 @@ button {
 }
 
 .footer-social a {
-  display: inline-block;
-  margin: 0 8px;
-  transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--muted);
+  transition: transform 0.25s var(--ease), color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 
 .footer-social a:hover {
   transform: translateY(-2px);
-  opacity: 0.75;
-}
-
-.footer-social img {
-  width: 32px;
-  height: 32px;
+  color: var(--accent-deep);
+  border-color: var(--accent-soft);
 }
 
 .footer-copy {
@@ -1193,9 +1197,7 @@ button {
   opacity: 0.8;
 }
 
-:root[data-theme="dark"] .link-to-top img,
-:root[data-theme="dark"] .footer-social img[src*="facebook"],
-:root[data-theme="dark"] .footer-social img[src*="instagram"] {
+:root[data-theme="dark"] .link-to-top img {
   filter: invert(0.8);
 }
 
@@ -2077,5 +2079,425 @@ html.skip-preloader .preloader,
 
   .contact-signature {
     max-width: 190px;
+  }
+}
+
+/* ===== 27. Scroll-progress (endast Cinematic) ===== */
+.scroll-progress {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+:root[data-perf="cinematic"] .scroll-progress {
+  display: block;
+}
+
+/* ===== 28. Filmgrain på heron (endast Cinematic) ===== */
+.hero-grain {
+  display: none;
+  position: absolute;
+  inset: -60px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-perf="cinematic"] .hero-grain {
+  display: block;
+  animation: grainShift 1.6s steps(4) infinite;
+}
+
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-18px, 12px);
+  }
+  50% {
+    transform: translate(14px, -16px);
+  }
+  75% {
+    transform: translate(-10px, -8px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ===== 29. Offertkalkylator ===== */
+.section-calculator {
+  background: var(--surface);
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 40px;
+  align-items: start;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.calc-fieldset {
+  margin: 0 0 26px;
+  padding: 22px 22px 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg);
+}
+
+.calc-fieldset legend {
+  padding: 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+}
+
+.calc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.calc-row:last-child {
+  border-bottom: none;
+}
+
+.calc-row:hover {
+  background: var(--surface);
+}
+
+.calc-row input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.calc-row-name {
+  flex: 1;
+  font-size: 14px;
+}
+
+.calc-row-price {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.calc-summary {
+  position: sticky;
+  top: 90px;
+  padding: 28px 26px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 2px;
+  background: var(--bg);
+  box-shadow: var(--shadow-card);
+}
+
+.calc-summary h3 {
+  margin: 0 0 18px;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+}
+
+.calc-list {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.calc-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-soft);
+}
+
+.calc-list li span:last-child {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.calc-total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding-top: 6px;
+}
+
+.calc-total-row .font-alt {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+}
+
+.calc-total {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.calc-summary .btn {
+  display: block;
+  text-align: center;
+}
+
+.calc-note {
+  margin: 16px 0 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ===== 30. FAQ ===== */
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 20px 4px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.faq-q:hover {
+  color: var(--accent-deep);
+}
+
+.faq-mark {
+  position: relative;
+  flex: 0 0 14px;
+  height: 14px;
+}
+
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 1.5px;
+  background: var(--accent);
+  transition: transform 0.3s var(--ease);
+}
+
+.faq-mark::after {
+  transform: rotate(90deg);
+}
+
+.faq-item.is-open .faq-mark::after {
+  transform: rotate(0deg);
+}
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s var(--ease);
+}
+
+.faq-a p {
+  margin: 0;
+  padding: 0 4px 22px;
+  max-width: 640px;
+  font-size: 14.5px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+/* ===== 31. Lightbox ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 8, 0.88);
+}
+
+.lightbox-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: min(920px, 94vw);
+  max-height: 90vh;
+  margin: 0;
+  background: var(--bg);
+  border-radius: 2px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.lightbox-img-wrap {
+  overflow: auto;
+  background: #0c0c0c;
+}
+
+.lightbox-img-wrap img {
+  display: block;
+  width: 100%;
+}
+
+.lightbox-caption {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.lightbox-caption strong {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.lightbox-caption span {
+  flex: 1;
+  font-size: 11.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lightbox-visit {
+  padding: 8px 22px;
+  font-size: 11px;
+}
+
+.lightbox-visit.is-hidden {
+  display: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: rgba(10, 10, 10, 0.55);
+  color: #fff;
+  border-radius: 50%;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+  background: rgba(10, 10, 10, 0.8);
+}
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.55);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lightbox-arrow:hover {
+  background: rgba(10, 10, 10, 0.8);
+}
+
+.lightbox-prev {
+  left: 10px;
+}
+
+.lightbox-next {
+  right: 10px;
+}
+
+/* ===== 32. Responsivt för kalkylator/FAQ/lightbox ===== */
+@media (max-width: 1024px) {
+  .calc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-summary {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .calc-fieldset {
+    padding: 16px 14px 6px;
+  }
+
+  .calc-row-name {
+    font-size: 13px;
+  }
+
+  .lightbox {
+    padding: 12px;
+  }
+
+  .lightbox-caption {
+    gap: 10px;
+    padding: 14px 14px;
+  }
+
+  .lightbox-caption span {
+    flex-basis: 100%;
+    order: 3;
   }
 }

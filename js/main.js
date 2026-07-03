@@ -322,6 +322,171 @@
     });
   });
 
+  /* ===== Lightbox för kundcase ===== */
+  var lightbox = document.getElementById("lightbox");
+  if (lightbox && masonry) {
+    var lbImg = document.getElementById("lightboxImg");
+    var lbTitle = document.getElementById("lightboxTitle");
+    var lbMeta = document.getElementById("lightboxMeta");
+    var lbVisit = document.getElementById("lightboxVisit");
+    var lbCards = [];
+    var lbIndex = 0;
+
+    function lbVisible() {
+      return Array.prototype.filter.call(
+        masonry.querySelectorAll(".case-card"),
+        function (c) {
+          return c.offsetParent !== null;
+        }
+      );
+    }
+
+    function lbRender() {
+      var card = lbCards[lbIndex];
+      if (!card) return;
+      var img = card.querySelector("img");
+      var link = card.querySelector('a[href^="http"]');
+      lbImg.src = img.getAttribute("src");
+      lbImg.alt = img.getAttribute("alt") || "";
+      lbTitle.textContent = card.querySelector("figcaption strong").textContent;
+      lbMeta.textContent = card.getAttribute("data-tech") || "HTML · CSS · JavaScript";
+      if (link) {
+        lbVisit.href = link.getAttribute("href");
+        lbVisit.classList.remove("is-hidden");
+      } else {
+        lbVisit.classList.add("is-hidden");
+      }
+    }
+
+    function lbOpen(card) {
+      lbCards = lbVisible();
+      lbIndex = Math.max(0, lbCards.indexOf(card));
+      lbRender();
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function lbClose() {
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + lbCards.length) % lbCards.length;
+      lbRender();
+    }
+
+    masonry.addEventListener("click", function (e) {
+      var card = e.target.closest(".case-card");
+      if (!card) return;
+      e.preventDefault(); // länken nås via "Besök sajten" i lightboxen
+      lbOpen(card);
+    });
+
+    document.getElementById("lightboxClose").addEventListener("click", lbClose);
+    document.getElementById("lightboxBackdrop").addEventListener("click", lbClose);
+    document.getElementById("lightboxPrev").addEventListener("click", function () {
+      lbStep(-1);
+    });
+    document.getElementById("lightboxNext").addEventListener("click", function () {
+      lbStep(1);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") lbClose();
+      if (e.key === "ArrowLeft") lbStep(-1);
+      if (e.key === "ArrowRight") lbStep(1);
+    });
+  }
+
+  /* ===== Offertkalkylator ===== */
+  var calc = document.getElementById("kalkyl");
+  if (calc) {
+    var calcList = document.getElementById("calcList");
+    var calcTotal = document.getElementById("calcTotal");
+    var calcSend = document.getElementById("calcSend");
+
+    var fmtKr = function (n) {
+      return n.toLocaleString("sv-SE") + " kr";
+    };
+
+    var updateCalc = function () {
+      var items = [];
+      var total = 0;
+      var paket = calc.querySelector('input[name="calcPaket"]:checked');
+      total += Number(paket.value);
+      items.push(["Paket " + paket.getAttribute("data-label"), Number(paket.value)]);
+      calc.querySelectorAll('input[name="calcTillval"]:checked').forEach(function (c) {
+        total += Number(c.value);
+        items.push([c.getAttribute("data-label"), Number(c.value)]);
+      });
+
+      calcList.innerHTML = "";
+      items.forEach(function (it) {
+        var li = document.createElement("li");
+        var name = document.createElement("span");
+        name.textContent = it[0];
+        var price = document.createElement("span");
+        price.textContent = fmtKr(it[1]);
+        li.appendChild(name);
+        li.appendChild(price);
+        calcList.appendChild(li);
+      });
+      calcTotal.textContent = fmtKr(total);
+
+      var body =
+        "Hej Lars!\n\nJag vill gärna ha en offert på följande:\n" +
+        items
+          .map(function (it) {
+            return "• " + it[0] + " (" + fmtKr(it[1]) + ")";
+          })
+          .join("\n") +
+        "\n\nRiktpris enligt kalkylatorn: " +
+        fmtKr(total) +
+        "\n\nMitt namn:\nTelefon:\nBerätta gärna kort om projektet:\n";
+      calcSend.href =
+        "mailto:lars@lastudio.se?subject=" +
+        encodeURIComponent("Offertförfrågan — LA Studio") +
+        "&body=" +
+        encodeURIComponent(body);
+    };
+
+    calc.addEventListener("change", updateCalc);
+    updateCalc();
+  }
+
+  /* ===== FAQ-accordion (en öppen åt gången) ===== */
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var q = item.querySelector(".faq-q");
+    var a = item.querySelector(".faq-a");
+    q.addEventListener("click", function () {
+      var open = !item.classList.contains("is-open");
+      document.querySelectorAll(".faq-item.is-open").forEach(function (other) {
+        other.classList.remove("is-open");
+        other.querySelector(".faq-a").style.maxHeight = "";
+        other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+      });
+      if (open) {
+        item.classList.add("is-open");
+        a.style.maxHeight = a.scrollHeight + "px";
+        q.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  /* ===== Scroll-progress (endast Cinematic) ===== */
+  var progressBar = document.getElementById("scrollProgress");
+  if (progressBar && PERF === "cinematic") {
+    window.addEventListener(
+      "scroll",
+      function () {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+      },
+      { passive: true }
+    );
+  }
+
   /* ===== Statistikräknare ===== */
   function animateCount(el) {
     var target = parseInt(el.getAttribute("data-count"), 10);
@@ -571,7 +736,7 @@
     {
       triggers: ["boka", "mote", "möte", "träffas", "ring", "kontakt"],
       response:
-        "Vad kul! Enklast är att fylla i **kontaktformuläret** längst ner på sidan eller mejla lars.asplund@hotmail.com — så bokar vi ett kostnadsfritt första möte.",
+        "Vad kul! Enklast är att fylla i **kontaktformuläret** längst ner på sidan eller mejla lars@lastudio.se — så bokar vi ett kostnadsfritt första möte.",
     },
     {
       triggers: ["ai", "utbildning", "kurs", "chatgpt", "artificiell"],
