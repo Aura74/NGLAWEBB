@@ -35,12 +35,24 @@
           root.setAttribute("data-perf-auto", "");
         }
         root.setAttribute("data-perf", perf);
+
+        if (sessionStorage.getItem("ngla:skipPreloader")) {
+          root.classList.add("skip-preloader");
+          sessionStorage.removeItem("ngla:skipPreloader");
+        }
       })();
     </script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- ===== Preloader ===== -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <img src="img/axe1.png" alt="" class="preloader-axe" />
+      <div class="preloader-text font-alt">LA Studio</div>
+    </div>
+
     <a class="skip-link" href="#intro">Hoppa till innehåll</a>
 
     <!-- ===== Navigering ===== -->
@@ -54,8 +66,8 @@
           <li><a href="#intro">Om LA Studio</a></li>
           <li><a href="#getStarted">Tjänster</a></li>
           <li><a href="#transfer">Koncept</a></li>
-          <li><a href="#portfolio">Kundcase</a></li>
-          <li><a href="#demo">Exempel</a></li>
+          <li><a href="#demo">Kundcase</a></li>
+          <li><a href="#testimonials">Omdömen</a></li>
           <li><a href="#pricing">Pris</a></li>
           <li><a href="#about">Kontakt</a></li>
         </ul>
@@ -107,8 +119,8 @@
         <li><a href="#intro">Om LA Studio</a></li>
         <li><a href="#getStarted">Tjänster</a></li>
         <li><a href="#transfer">Koncept</a></li>
-        <li><a href="#portfolio">Kundcase</a></li>
-        <li><a href="#demo">Exempel</a></li>
+        <li><a href="#demo">Kundcase</a></li>
+        <li><a href="#testimonials">Omdömen</a></li>
         <li><a href="#pricing">Pris</a></li>
         <li><a href="#about">Kontakt</a></li>
       </ul>
@@ -131,11 +143,13 @@
       <div class="hero-scrim" aria-hidden="true"></div>
 
       <div class="hero-content">
-        <h1 class="hero-title font-alt">webbyrån</h1>
+        <h1 class="hero-title font-alt" id="heroTitle">webbyrån</h1>
         <p class="hero-sub font-alt">Lars Asplund</p>
-        <button class="btn btn-light" type="button" data-scroll="#intro">
-          Klicka här
-        </button>
+        <div class="hero-cta">
+          <button class="btn btn-light" type="button" data-scroll="#intro">
+            Klicka här
+          </button>
+        </div>
       </div>
 
       <a href="#intro" class="scroll-down" aria-label="Scrolla ned"></a>
@@ -188,7 +202,7 @@
                 <div class="team-item-detail">
                   <h4 class="font-alt">Share</h4>
                   <p>Lars Asplund</p>
-                  <a href="#portfolio">Learn more</a>
+                  <a href="#demo">Learn more</a>
                 </div>
               </div>
               <div class="team-item-descr font-alt">
@@ -269,6 +283,26 @@
               </p>
             </div>
           </div>
+
+          <!-- Statistik -->
+          <div class="stats-band" data-reveal>
+            <div class="stat">
+              <div class="stat-num font-alt"><span data-count="60">0</span>+</div>
+              <div class="stat-label font-alt">Byggda hemsidor</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num font-alt"><span data-count="12">0</span></div>
+              <div class="stat-label font-alt">Branscher</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num font-alt"><span data-count="100">0</span>%</div>
+              <div class="stat-label font-alt">Engagemang</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num font-alt"><span data-count="24">0</span>h</div>
+              <div class="stat-label font-alt">Svarstid</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -291,7 +325,7 @@
                 teknisk expertis och engagemang.
               </p>
               <button class="btn btn-outline-light" type="button" data-scroll="#pricing">
-                Get started
+                Se våra paket
               </button>
             </div>
           </div>
@@ -319,8 +353,8 @@
                 artificiell intelligens (AI) är utformad för att ge dig eller
                 dina medarbetare praktiska färdigheter och insikter.
               </p>
-              <button class="btn btn-outline" type="button" data-scroll="#pricing">
-                Get started
+              <button class="btn btn-outline" type="button" data-scroll="#about">
+                Kontakta mig
               </button>
             </div>
             <div class="split-media" data-reveal style="--reveal-delay: 0.15s">
@@ -332,49 +366,186 @@
 
       <hr class="divider" />
 
-      <!-- ===== Skapade hemsidor ===== -->
+      <!-- ===== Skapade hemsidor (kundcase med filter) ===== -->
       <section class="page-section" id="demo">
         <div class="container">
           <h2 class="section-title font-alt" data-reveal>Skapade hemsidor</h2>
           <p class="section-lead" data-reveal>
             Här kan du se de hemsidor som skapats under årens lopp
           </p>
+
+          <div class="filter-bar" data-reveal role="group" aria-label="Filtrera kundcase">
+            <button class="filter-btn is-active" type="button" data-filter="all">Alla</button>
+            <button class="filter-btn" type="button" data-filter="foretag">Företag</button>
+            <button class="filter-btn" type="button" data-filter="app">Appar &amp; verktyg</button>
+            <button class="filter-btn" type="button" data-filter="kampanj">Kampanj</button>
+            <button class="filter-btn" type="button" data-filter="blogg">Blogg &amp; personligt</button>
+          </div>
         </div>
 
-        <div class="masonry" data-reveal>
-          <a href="https://witty-plant-0caac5803.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/boderoakhigh.JPG" alt="Border Oak" loading="lazy" /></a>
-          <img src="img/Projekt/gubben.JPG" alt="Projekt" loading="lazy" />
-          <img src="img/Projekt/betalningVited.JPG" alt="Betalningssida" loading="lazy" />
-          <img src="img/Projekt/blueCv.JPG" alt="CV-sida" loading="lazy" />
-          <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/lilaHigh.JPG" alt="Projekt" loading="lazy" /></a>
-          <a href="https://lastudio.se/" target="_blank" rel="noopener">
-            <img src="img/Projekt/gooniesNYSmalBred.JPG" alt="Goonies-sida" loading="lazy" /></a>
-          <img src="img/Projekt/100Procent.JPG" alt="Projekt" loading="lazy" />
-          <a href="https://kind-beach-09d973303.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/mindyhög.JPG" alt="Projekt" loading="lazy" /></a>
-          <img src="img/Projekt/labloggLila.JPG" alt="Blogg" loading="lazy" />
-          <img src="img/Projekt/todo.JPG" alt="Todo-app" loading="lazy" />
-          <img src="img/Projekt/segelbat.JPG" alt="Segelbåt" loading="lazy" />
-          <img src="img/Projekt/labobred.JPG" alt="Projekt" loading="lazy" />
-          <a href="https://lastudio.se/" target="_blank" rel="noopener">
-            <img src="img/Projekt/gooniesNY1.JPG" alt="Goonies-sida" loading="lazy" /></a>
-          <img src="img/lapp.JPG" alt="Projekt" loading="lazy" />
-          <img src="img/Projekt/hotel.JPG" alt="Hotellsida" loading="lazy" />
-          <img src="img/Projekt/labohigh2.JPG" alt="Projekt" loading="lazy" />
-          <img src="img/Projekt/la23long.JPG" alt="Projekt" loading="lazy" />
-          <a href="https://lemon-meadow-077f12703.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/frisk.JPG" alt="Friskvårdssida" loading="lazy" /></a>
-          <img src="img/Projekt/lalang2.JPG" alt="Projekt" loading="lazy" />
-          <a href="https://thankful-plant-0c9845803.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/cartoonSok.JPG" alt="Söksida" loading="lazy" /></a>
-          <img src="img/Projekt/imageGalleyZelda.JPG" alt="Bildgalleri" loading="lazy" />
-          <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
-            <img src="img/Projekt/lila2high.JPG" alt="Projekt" loading="lazy" /></a>
-          <img src="img/Projekt/anstallda.JPG" alt="Anställda" loading="lazy" />
-          <a href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net" target="_blank" rel="noopener">
-            <img src="img/Projekt/laovarderlig.JPG" alt="Projekt" loading="lazy" /></a>
+        <div class="masonry" id="caseGrid" data-reveal>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://witty-plant-0caac5803.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/boderoakhigh.JPG" alt="Border Oak" loading="lazy" />
+              <figcaption><strong>Border Oak</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <img src="img/Projekt/gubben.JPG" alt="Porträttsida" loading="lazy" />
+            <figcaption><strong>Porträttsida</strong><span>Kampanj</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="app">
+            <img src="img/Projekt/betalningVited.JPG" alt="Betalningsflöde" loading="lazy" />
+            <figcaption><strong>Betalningsflöde</strong><span>App &amp; verktyg</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="blogg">
+            <img src="img/Projekt/blueCv.JPG" alt="CV-sida" loading="lazy" />
+            <figcaption><strong>CV-sida</strong><span>Personligt</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/lilaHigh.JPG" alt="Lila konceptsida" loading="lazy" />
+              <figcaption><strong>Lila koncept</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://lastudio.se/" target="_blank" rel="noopener">
+              <img src="img/Projekt/gooniesNYSmalBred.JPG" alt="LA Studio" loading="lazy" />
+              <figcaption><strong>LA Studio</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <img src="img/Projekt/100Procent.JPG" alt="Kampanjsida" loading="lazy" />
+            <figcaption><strong>100 procent</strong><span>Kampanj</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://kind-beach-09d973303.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/mindyhög.JPG" alt="Mindy" loading="lazy" />
+              <figcaption><strong>Mindy</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="blogg">
+            <img src="img/Projekt/labloggLila.JPG" alt="LA-bloggen" loading="lazy" />
+            <figcaption><strong>LA-bloggen</strong><span>Blogg</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="app">
+            <img src="img/Projekt/todo.JPG" alt="Att göra-lista" loading="lazy" />
+            <figcaption><strong>Att göra-lista</strong><span>App &amp; verktyg</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <img src="img/Projekt/segelbat.JPG" alt="Segelbåt" loading="lazy" />
+            <figcaption><strong>Segelbåt</strong><span>Kampanj</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <img src="img/Projekt/labobred.JPG" alt="Labo" loading="lazy" />
+            <figcaption><strong>Labo</strong><span>Företag</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://lastudio.se/" target="_blank" rel="noopener">
+              <img src="img/Projekt/gooniesNY1.JPG" alt="LA Studio guld" loading="lazy" />
+              <figcaption><strong>LA Studio guld</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="blogg">
+            <img src="img/lapp.JPG" alt="Anteckningssida" loading="lazy" />
+            <figcaption><strong>Anteckningar</strong><span>Personligt</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <img src="img/Projekt/hotel.JPG" alt="Hotellsida" loading="lazy" />
+            <figcaption><strong>Hotell</strong><span>Företag</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <img src="img/Projekt/labohigh2.JPG" alt="Labo mörk" loading="lazy" />
+            <figcaption><strong>Labo mörk</strong><span>Företag</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <img src="img/Projekt/la23long.JPG" alt="LA 2023" loading="lazy" />
+            <figcaption><strong>LA 2023</strong><span>Kampanj</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://lemon-meadow-077f12703.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/frisk.JPG" alt="Friskvård" loading="lazy" />
+              <figcaption><strong>Friskvård</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <img src="img/Projekt/lalang2.JPG" alt="LA lång" loading="lazy" />
+            <figcaption><strong>LA lång</strong><span>Kampanj</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="app">
+            <a href="https://thankful-plant-0c9845803.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/cartoonSok.JPG" alt="Bildsök" loading="lazy" />
+              <figcaption><strong>Bildsök</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="app">
+            <img src="img/Projekt/imageGalleyZelda.JPG" alt="Zelda-galleri" loading="lazy" />
+            <figcaption><strong>Zelda-galleri</strong><span>App &amp; verktyg</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="kampanj">
+            <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
+              <img src="img/Projekt/lila2high.JPG" alt="Lila 2" loading="lazy" />
+              <figcaption><strong>Lila 2</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+          <figure class="case-card" data-cat="app">
+            <img src="img/Projekt/anstallda.JPG" alt="Medarbetarvy" loading="lazy" />
+            <figcaption><strong>Medarbetarvy</strong><span>App &amp; verktyg</span></figcaption>
+          </figure>
+          <figure class="case-card" data-cat="foretag">
+            <a href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net" target="_blank" rel="noopener">
+              <img src="img/Projekt/laovarderlig.JPG" alt="Ovärderlig" loading="lazy" />
+              <figcaption><strong>Ovärderlig</strong><span>Besök sajten →</span></figcaption>
+            </a>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===== Omdömen ===== -->
+      <section class="page-section section-testimonials" id="testimonials">
+        <div class="container">
+          <h2 class="section-title font-alt" data-reveal>Vad kunderna säger</h2>
+          <div class="swiper testi-swiper" data-reveal>
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <blockquote class="testi-card">
+                  <p>
+                    Lars levererade en sida som kändes betydligt dyrare än den
+                    var. Snabb, lyhörd och grym på detaljer.
+                  </p>
+                  <footer class="font-alt">Anna R. — Friskvårdsstudio</footer>
+                </blockquote>
+              </div>
+              <div class="swiper-slide">
+                <blockquote class="testi-card">
+                  <p>
+                    Från idé till lansering på tre veckor. Bästa investeringen
+                    vi gjort digitalt.
+                  </p>
+                  <footer class="font-alt">Peter L. — Border Oak</footer>
+                </blockquote>
+              </div>
+              <div class="swiper-slide">
+                <blockquote class="testi-card">
+                  <p>
+                    Vår bokningsgrad ökade markant efter att nya sajten gick
+                    live. Rekommenderas varmt.
+                  </p>
+                  <footer class="font-alt">Mindy K. — Salong</footer>
+                </blockquote>
+              </div>
+              <div class="swiper-slide">
+                <blockquote class="testi-card">
+                  <p>
+                    AI-utbildningen gav hela teamet superkrafter. Praktisk,
+                    rolig och direkt användbar i vardagen.
+                  </p>
+                  <footer class="font-alt">Johan S. — Konsultbolag</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
       </section>
 
@@ -382,10 +553,11 @@
       <section class="small-section section-dark-lighter" id="pricing">
         <div class="container">
           <h2 class="head-title font-alt">Vad kostar det</h2>
-          <p class="head-sub font-alt">Nästan ingenting!</p>
+          <p class="head-sub font-alt">Fast pris — inga överraskningar</p>
           <p class="head-text">
-            Jag ger dig och ditt företag rätt förutsättningar att nå ut till
-            kunder på ett modernt, användarvänligt och professionellt sätt.
+            Alla paket är engångspris och inkluderar responsiv design, snabb
+            laddning och personlig kontakt genom hela projektet. Priserna är
+            riktpriser — exakt offert efter ett kostnadsfritt första möte.
           </p>
         </div>
       </section>
@@ -397,61 +569,62 @@
               <div class="pricing-icon">
                 <img src="img/icons/icons8-collaboration-50.png" alt="" loading="lazy" />
               </div>
-              <div class="pricing-title">Silver</div>
+              <div class="pricing-title">Start</div>
               <ul class="pricing-list font-alt">
+                <li>Onepager — perfekt för nystart</li>
+                <li>Responsiv design</li>
                 <li>Egen domänadress</li>
-                <li>Professionell hemsida</li>
-                <li>E-postadresser</li>
-                <li>Webbhotell i molnet</li>
                 <li>SSL-certifikat (https)</li>
+                <li>Två korrekturrundor</li>
               </ul>
-              <div class="pricing-num"><sup>$</sup>499</div>
-              <div class="pricing-per">per month</div>
+              <div class="pricing-num"><span class="pricing-from">från</span> 4 900 <sup>kr</sup></div>
+              <div class="pricing-per">engångspris</div>
               <div class="pricing-cta">
                 <button class="btn btn-dark" type="button" data-scroll="#about">
-                  now or never
+                  Kom igång
                 </button>
               </div>
             </div>
 
-            <div class="pricing-item" data-reveal style="--reveal-delay: 0.1s">
+            <div class="pricing-item is-main" data-reveal style="--reveal-delay: 0.1s">
+              <div class="pricing-badge font-alt">Populärast</div>
               <div class="pricing-icon">
-                <img src="img/icons/icons8-wedding-day-50.png" alt="" loading="lazy" />
+                <img src="img/icons/icons8-briefcase-100.png" alt="" loading="lazy" />
               </div>
-              <div class="pricing-title">Gold</div>
+              <div class="pricing-title">Företag</div>
               <ul class="pricing-list font-alt">
-                <li>Egen domänadress</li>
-                <li>15000 photos (jpeg)</li>
-                <li>Foton från proffsfotograf</li>
-                <li>Filmproduktion</li>
+                <li>Flersidig webbplats</li>
                 <li>Sökmotoroptimering (SEO)</li>
+                <li>E-postadresser &amp; webbhotell</li>
+                <li>Kontakt- och bokningsflöde</li>
+                <li>Utbildning i att uppdatera själv</li>
               </ul>
-              <div class="pricing-num"><sup>$</sup>1099</div>
-              <div class="pricing-per">per month</div>
+              <div class="pricing-num"><span class="pricing-from">från</span> 12 900 <sup>kr</sup></div>
+              <div class="pricing-per">engångspris</div>
               <div class="pricing-cta">
                 <button class="btn btn-dark" type="button" data-scroll="#about">
-                  now or never
+                  Kom igång
                 </button>
               </div>
             </div>
 
-            <div class="pricing-item is-main" data-reveal style="--reveal-delay: 0.2s">
+            <div class="pricing-item" data-reveal style="--reveal-delay: 0.2s">
               <div class="pricing-icon">
-                <img src="img/icons/icons8-vampire-50.png" alt="" loading="lazy" />
+                <img src="img/icons/icons8-box-100.png" alt="" loading="lazy" />
               </div>
-              <div class="pricing-title">Ultimate</div>
+              <div class="pricing-title">Premium</div>
               <ul class="pricing-list font-alt">
-                <li>Egen domänadress</li>
-                <li><strong>Synlighet i sociala medier</strong></li>
-                <li>lifetime friendship</li>
-                <li>Google-anpassningar</li>
-                <li>Webbhotell i molnet</li>
+                <li>Skräddarsydd design &amp; animation</li>
+                <li>AI-chattassistent på sajten</li>
+                <li>Foto/film-produktion</li>
+                <li>Synlighet i sociala medier</li>
+                <li>Support i 6 månader</li>
               </ul>
-              <div class="pricing-num"><sup>$</sup>2499</div>
-              <div class="pricing-per">per month</div>
+              <div class="pricing-num"><span class="pricing-from">från</span> 24 900 <sup>kr</sup></div>
+              <div class="pricing-per">engångspris</div>
               <div class="pricing-cta">
                 <button class="btn btn-dark" type="button" data-scroll="#about">
-                  now or never
+                  Kom igång
                 </button>
               </div>
             </div>
@@ -459,15 +632,59 @@
         </div>
       </section>
 
-      <!-- ===== Kontakt ===== -->
-      <section class="small-section section-dark-lighter" id="about">
-        <div class="container about-row">
-          <div>
-            <h2 class="head-title font-alt">About me</h2>
-            <p class="head-sub font-alt">The coolest place in the history</p>
-          </div>
-          <div class="about-mail font-alt">
-            <a href="mailto:lars.asplund@hotmail.com">email: lars.asplund@hotmail.com</a>
+      <!-- ===== Kontakt / Om mig ===== -->
+      <section class="page-section section-dark" id="about">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-about" data-reveal>
+              <img
+                src="img/las23.JPG"
+                alt="Lars Asplund — signatur"
+                class="contact-signature"
+                loading="lazy"
+              />
+              <h2 class="head-title font-alt">Om mig</h2>
+              <p>
+                Jag heter Lars Asplund och driver LA Studio. Jag har byggt över
+                60 webbplatser — från enkla onepagers till e-handel, appar och
+                AI-drivna lösningar. Min styrka är att kombinera hantverk i
+                koden med en design som känns påkostad.
+              </p>
+              <p>
+                Du jobbar alltid direkt med mig: inga mellanhänder, snabba svar
+                och ett personligt engagemang i varje detalj. Hör av dig så tar
+                vi ett kostnadsfritt första möte om dina idéer.
+              </p>
+              <div class="contact-actions">
+                <button class="btn btn-outline-light" type="button" id="bookingBtn">
+                  Boka kostnadsfritt möte
+                </button>
+                <a href="mailto:lars.asplund@hotmail.com" class="contact-mail font-alt">
+                  lars.asplund@hotmail.com
+                </a>
+              </div>
+            </div>
+
+            <form class="contact-form" id="contactForm" data-reveal style="--reveal-delay: 0.15s" novalidate>
+              <h3 class="font-alt">Skicka en förfrågan</h3>
+              <label>
+                <span>Namn</span>
+                <input type="text" name="name" required autocomplete="name" />
+              </label>
+              <label>
+                <span>E-post</span>
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+              <label>
+                <span>Berätta om ditt projekt</span>
+                <textarea name="message" rows="5" required></textarea>
+              </label>
+              <button class="btn btn-light" type="submit">Skicka</button>
+              <p class="form-note">
+                Formuläret är en demo — mejla direkt tills det kopplats till en
+                riktig tjänst (t.ex. Formspree eller Web3Forms).
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -532,9 +749,56 @@
       </div>
     </div>
 
+    <!-- ===== AI-chatt ===== -->
+    <button class="chat-fab" id="chatFab" type="button" aria-label="Öppna chatten">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    </button>
+
+    <div class="chat-widget" id="chatWidget" hidden>
+      <div class="chat-head">
+        <div class="chat-head-title">
+          <span class="chat-dot" aria-hidden="true"></span>
+          <span class="font-alt">LA Assistent</span>
+        </div>
+        <button class="icon-btn" id="chatClose" type="button" aria-label="Stäng chatten">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-typing" id="chatTyping" hidden>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <button type="button" class="chat-chip" data-msg="Vad kostar en hemsida?">Vad kostar en hemsida?</button>
+        <button type="button" class="chat-chip" data-msg="Hur lång tid tar ett projekt?">Hur lång tid tar det?</button>
+        <button type="button" class="chat-chip" data-msg="Jag vill boka ett möte">Boka möte</button>
+      </div>
+      <div class="chat-input-row">
+        <input
+          type="text"
+          id="chatInput"
+          maxlength="500"
+          placeholder="Skriv ett meddelande…"
+          aria-label="Skriv ett meddelande"
+        />
+        <button class="chat-send" id="chatSend" type="button" aria-label="Skicka" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script src="js/main.js" defer></script>
   </body>
 </html>

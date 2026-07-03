@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — LA-Studio</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" href="img/icons/lagul2.png" />
+    <script>
+      if (localStorage.getItem("theme") === "dark" ||
+          (!localStorage.getItem("theme") &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+      document.documentElement.setAttribute("data-perf", "essential");
+    </script>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .nf-wrap {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 24px;
+        text-align: center;
+      }
+      .nf-axe {
+        width: 84px;
+        margin-bottom: 18px;
+      }
+      .nf-code {
+        margin: 0;
+        font-size: clamp(64px, 14vw, 120px);
+        letter-spacing: 0.2em;
+        line-height: 1.1;
+      }
+      .nf-text {
+        margin: 0 0 28px;
+        color: var(--muted);
+        font-size: 15px;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nf-wrap">
+      <img src="img/axe1.png" alt="" class="nf-axe" />
+      <h1 class="nf-code font-alt">404</h1>
+      <p class="nf-text">Sidan du letar efter finns inte — men yxan hittar alltid hem.</p>
+      <a href="/" class="btn btn-outline">Till startsidan</a>
+    </div>
+  </body>
+</html>
