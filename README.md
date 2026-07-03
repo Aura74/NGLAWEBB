@@ -67,7 +67,10 @@ NGLAWEBB/
 
 - CSS-variabler i `:root`, dark mode via `:root[data-theme="dark"]`
 - Ljust: varm off-white `#faf9f7`; mörkt: `#100f0e`. Accent: guld `#b8960c` (+ `#8a7009` för text)
-- Loggan (`lagul2.png`, nästan svart) görs **vit med `filter: brightness(0) invert(1)`** på mörk nav/mobilpanel
+- Loggan (`lagul2.png`, nästan svart) görs **vit med `filter: brightness(0) invert(1)`** på mörk nav/mobilpanel,
+  och **champagneguld** i mörkt läge för intro-loggan (invert + sepia-kedja)
+- Hörnstenar-ikoner: inline SVG-linjeikoner i guld (sparkles / kod / hjärta), stroke 1.4
+- Foton: `img/koncept-mote.jpg` + `img/laptop-kod.jpg` — Unsplash, nedladdade lokalt (ersatte tecknade illustrationer)
 - `border-radius: 2px`, hover max `translateY(-3px)`, brandtonade flerskiktsskuggor
 - Rubriker med flankerande guldlinjer
 
