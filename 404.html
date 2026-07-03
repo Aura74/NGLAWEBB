@@ -27,9 +27,13 @@
         padding: 24px;
         text-align: center;
       }
-      .nf-axe {
-        width: 84px;
+      .nf-logo {
+        width: min(220px, 60vw);
         margin-bottom: 18px;
+      }
+      :root[data-theme="dark"] .nf-logo {
+        filter: brightness(0) invert(0.92) sepia(0.25) saturate(2.5)
+          hue-rotate(10deg);
       }
       .nf-code {
         margin: 0;
@@ -47,9 +51,9 @@
   </head>
   <body>
     <div class="nf-wrap">
-      <img src="img/axe1.png" alt="" class="nf-axe" />
+      <img src="img/icons/lagul2.png" alt="LA Studio" class="nf-logo" />
       <h1 class="nf-code font-alt">404</h1>
-      <p class="nf-text">Sidan du letar efter finns inte — men yxan hittar alltid hem.</p>
+      <p class="nf-text">Sidan du letar efter finns inte — men vägen hem är aldrig långt borta.</p>
       <a href="/" class="btn btn-outline">Till startsidan</a>
     </div>
   </body>

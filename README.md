@@ -82,6 +82,7 @@ NGLAWEBB/
 
 - Breakpoints: **1200 / 1024 / 768 / 480**; hamburgermeny <1024 med X-stängknapp
 - Masonry 4→3→2→1 kolumner; case-bildtexter alltid synliga på touch; team-overlay togglas med tapp
+- Galleriet visar bara 3 case + "Visa alla"-knapp på ≤768px (filterklick expanderar också)
 - Chatten blir nästan fullbredd <480; `overflow-x: hidden` på html + body
 
 ## Browser support

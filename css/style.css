@@ -948,6 +948,23 @@ button {
   }
 }
 
+/* Mobil: visa bara de tre första casen tills "Visa alla" trycks */
+.show-all-wrap {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .masonry.is-collapsed .case-card:nth-child(n + 4) {
+    display: none;
+  }
+
+  .masonry.is-collapsed ~ .show-all-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 26px;
+  }
+}
+
 /* ===== 12b. Filterknappar ===== */
 .filter-bar {
   display: flex;
@@ -1118,6 +1135,15 @@ button {
 .footer-logo {
   display: inline-block;
   margin-bottom: 30px;
+}
+
+.footer-logo img {
+  height: 34px;
+  width: auto;
+}
+
+:root[data-theme="dark"] .footer-logo img {
+  filter: brightness(0) invert(0.92) sepia(0.25) saturate(2.5) hue-rotate(10deg);
 }
 
 .footer-social {
@@ -1498,16 +1524,14 @@ button {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.preloader-axe {
-  width: 72px;
+.preloader-logo {
+  width: min(220px, 55vw);
   height: auto;
   animation: preloaderPulse 1.3s ease-in-out infinite;
 }
 
-.preloader-text {
-  font-size: 13px;
-  letter-spacing: 0.5em;
-  color: var(--muted);
+:root[data-theme="dark"] .preloader-logo {
+  filter: brightness(0) invert(0.92) sepia(0.25) saturate(2.5) hue-rotate(10deg);
 }
 
 .preloader.is-done {

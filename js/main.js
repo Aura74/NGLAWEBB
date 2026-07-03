@@ -296,9 +296,21 @@
   }
 
   /* ===== Case-filter ===== */
+  var masonry = document.getElementById("caseGrid");
+  var showAllBtn = document.getElementById("showAllBtn");
+
+  function expandCases() {
+    if (masonry) masonry.classList.remove("is-collapsed");
+  }
+
+  if (showAllBtn) {
+    showAllBtn.addEventListener("click", expandCases);
+  }
+
   var filterBtns = document.querySelectorAll(".filter-btn");
   filterBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
+      expandCases(); // filtrering ska alltid visa alla träffar
       var filter = btn.getAttribute("data-filter");
       filterBtns.forEach(function (b) {
         b.classList.toggle("is-active", b === btn);
