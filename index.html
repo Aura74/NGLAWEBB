@@ -145,7 +145,7 @@
 
     <!-- Mobilmeny -->
     <div class="mobile-overlay" id="mobileOverlay" hidden></div>
-    <aside class="mobile-panel" id="mobilePanel" aria-label="Mobilmeny" hidden>
+    <aside class="mobile-panel" id="mobilePanel" aria-label="Mobilmeny" hidden data-lenis-prevent>
       <div class="mobile-panel-head">
         <img src="img/icons/lagul2.png" alt="" class="mobile-panel-logo" />
         <button class="icon-btn" id="menuClose" type="button" aria-label="Stäng meny">
@@ -167,6 +167,7 @@
 
     <!-- ===== Hero ===== -->
     <header class="hero" id="home">
+      <!-- src sätts av main.js utom i Essential, så videon inte laddas i onödan -->
       <video
         class="hero-video"
         id="heroVideo"
@@ -176,14 +177,16 @@
         playsinline
         preload="metadata"
         poster="img/hero-poster.jpg"
-        src="stad2-web.mp4"
+        data-src="stad2-web.mp4"
       ></video>
       <div class="hero-fallback" aria-hidden="true"></div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-grain" aria-hidden="true"></div>
 
       <div class="hero-content">
+        <p class="hero-eyebrow font-alt">LA Studio</p>
         <h1 class="hero-title font-alt" id="heroTitle">webbyrån</h1>
+        <div class="hero-divider" aria-hidden="true"></div>
         <p class="hero-sub font-alt">Lars Asplund</p>
         <div class="hero-cta">
           <button class="btn btn-light" type="button" data-scroll="#intro">
@@ -421,144 +424,167 @@
 
       <hr class="divider" />
 
-      <!-- ===== Skapade hemsidor (kundcase med filter) ===== -->
-      <section class="page-section" id="demo">
+      <!-- ===== Skapade hemsidor (utvalda arbeten i webbläsarramar) =====
+           Bilderna i img/work/ är skärmdumpar av de publicerade sajterna,
+           1440 px breda och tre skärmhöjder långa. Vid hover rullar sidan
+           förbi i ramen, och ett klick öppnar hela bilden i lightboxen. -->
+      <section class="page-section section-work" id="demo">
         <div class="container">
           <h2 class="section-title font-alt" data-reveal>Skapade hemsidor</h2>
           <p class="section-lead" data-reveal>
-            Här kan du se de hemsidor som skapats under årens lopp
+            Ett urval av de hemsidor som skapats under årens lopp — klicka på
+            en sajt för att se hela sidan.
           </p>
 
-          <div class="filter-bar" data-reveal role="group" aria-label="Filtrera kundcase">
-            <button class="filter-btn is-active" type="button" data-filter="all">Alla</button>
-            <button class="filter-btn" type="button" data-filter="foretag">Företag</button>
-            <button class="filter-btn" type="button" data-filter="app">Appar &amp; verktyg</button>
-            <button class="filter-btn" type="button" data-filter="kampanj">Kampanj</button>
-            <button class="filter-btn" type="button" data-filter="blogg">Blogg &amp; personligt</button>
+          <!-- Utvalt projekt -->
+          <article
+            class="work-item work-feature"
+            data-reveal
+            data-title="Änglaljus"
+            data-tech="HTML · CSS · JavaScript · Lenis · Swiper · AI-chatt"
+            data-url="https://proud-grass-05d5e2e03.4.azurestaticapps.net/"
+          >
+            <button class="work-screen" type="button" data-work-open aria-label="Visa hela startsidan för Änglaljus">
+              <span class="work-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="work-view">
+                <img src="img/work/anglaljus.webp" alt="Startsidan för Änglaljus" width="1280" height="2400" loading="lazy" />
+              </span>
+            </button>
+
+            <div class="work-feature-text">
+              <p class="work-eyebrow font-alt"><span class="work-num">01</span>Utvalt projekt</p>
+              <h3 class="work-title font-alt">Änglaljus</h3>
+              <p class="work-cat">Healing &amp; medial vägledning</p>
+              <p class="work-desc">
+                En stilla, filmisk onepager för healing och meditation — med
+                änglakort att dra, presentkort, omdömen och en AI-assistent som
+                svarar besökarnas frågor dygnet runt.
+              </p>
+              <ul class="work-tags">
+                <li>Lenis</li>
+                <li>Swiper</li>
+                <li>AI-chatt</li>
+                <li>Mörkt läge</li>
+              </ul>
+              <div class="work-actions">
+                <button class="btn btn-outline" type="button" data-work-open>Se hela sidan</button>
+                <a class="work-link font-alt" href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
+                  Besök sajten
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Fler arbeten: 2×2 på desktop, svepbar rad på mobil -->
+          <div class="work-grid">
+            <article
+              class="work-item work-card"
+              data-reveal
+              data-title="SuperFrisk"
+              data-tech="HTML · CSS · JavaScript · AOS · Lenis · AI-chatt"
+              data-url="https://lemon-meadow-077f12703.4.azurestaticapps.net/"
+            >
+              <button class="work-screen" type="button" data-work-open aria-label="Visa hela startsidan för SuperFrisk">
+                <span class="work-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="work-view">
+                  <img src="img/work/superfrisk.webp" alt="Startsidan för SuperFrisk" width="1280" height="2400" loading="lazy" />
+                </span>
+              </button>
+              <div class="work-meta">
+                <span class="work-num font-alt">02</span>
+                <div class="work-meta-text">
+                  <h3 class="work-name font-alt">SuperFrisk</h3>
+                  <p class="work-cat">Kost · träning · välmående</p>
+                </div>
+                <a class="work-visit" href="https://lemon-meadow-077f12703.4.azurestaticapps.net/" target="_blank" rel="noopener" aria-label="Besök SuperFrisk (öppnas i ny flik)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <article
+              class="work-item work-card"
+              data-reveal
+              style="--reveal-delay: 0.1s"
+              data-title="LA Studio Ljusne"
+              data-tech="HTML · CSS · JavaScript · Lucide · AI-chatt"
+              data-url="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net/"
+            >
+              <button class="work-screen" type="button" data-work-open aria-label="Visa hela startsidan för LA Studio Ljusne">
+                <span class="work-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="work-view">
+                  <img src="img/work/ljusne.webp" alt="Startsidan för LA Studio Ljusne" width="1280" height="2400" loading="lazy" />
+                </span>
+              </button>
+              <div class="work-meta">
+                <span class="work-num font-alt">03</span>
+                <div class="work-meta-text">
+                  <h3 class="work-name font-alt">LA Studio Ljusne</h3>
+                  <p class="work-cat">Webbyrå · fallstudier</p>
+                </div>
+                <a class="work-visit" href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net/" target="_blank" rel="noopener" aria-label="Besök LA Studio Ljusne (öppnas i ny flik)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <article
+              class="work-item work-card"
+              data-reveal
+              data-title="Border Oak"
+              data-tech="HTML · CSS · JavaScript"
+              data-url="https://witty-plant-0caac5803.4.azurestaticapps.net/"
+            >
+              <button class="work-screen" type="button" data-work-open aria-label="Visa hela startsidan för Border Oak">
+                <span class="work-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="work-view">
+                  <img src="img/work/borderoak.webp" alt="Startsidan för Border Oak" width="1280" height="2400" loading="lazy" />
+                </span>
+              </button>
+              <div class="work-meta">
+                <span class="work-num font-alt">04</span>
+                <div class="work-meta-text">
+                  <h3 class="work-name font-alt">Border Oak</h3>
+                  <p class="work-cat">Hantverk · ekbyggnader</p>
+                </div>
+                <a class="work-visit" href="https://witty-plant-0caac5803.4.azurestaticapps.net/" target="_blank" rel="noopener" aria-label="Besök Border Oak (öppnas i ny flik)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
+
+            <article
+              class="work-item work-card"
+              data-reveal
+              style="--reveal-delay: 0.1s"
+              data-title="Lars Asplund"
+              data-tech="HTML · CSS · JavaScript"
+              data-url="https://kind-beach-09d973303.4.azurestaticapps.net/"
+            >
+              <button class="work-screen" type="button" data-work-open aria-label="Visa hela startsidan för Lars Asplund">
+                <span class="work-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="work-view">
+                  <img src="img/work/larsasplund.webp" alt="Startsidan för Lars Asplund – webbyrån från Gävle" width="1280" height="1443" loading="lazy" />
+                </span>
+              </button>
+              <div class="work-meta">
+                <span class="work-num font-alt">05</span>
+                <div class="work-meta-text">
+                  <h3 class="work-name font-alt">Lars Asplund</h3>
+                  <p class="work-cat">Portfolio · Gävle</p>
+                </div>
+                <a class="work-visit" href="https://kind-beach-09d973303.4.azurestaticapps.net/" target="_blank" rel="noopener" aria-label="Besök Lars Asplunds portfolio (öppnas i ny flik)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                </a>
+              </div>
+            </article>
           </div>
-        </div>
 
-        <div class="masonry is-collapsed" id="caseGrid" data-reveal>
-          <figure class="case-card" data-cat="foretag" data-tech="HTML · CSS · GSAP">
-            <a href="https://witty-plant-0caac5803.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/boderoakhigh.JPG" alt="Border Oak" loading="lazy" />
-              <figcaption><strong>Border Oak</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <img src="img/Projekt/gubben.JPG" alt="Porträttsida" loading="lazy" />
-            <figcaption><strong>Porträttsida</strong><span>Kampanj</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="app" data-tech="JavaScript · UI-flöde">
-            <img src="img/Projekt/betalningVited.JPG" alt="Betalningsflöde" loading="lazy" />
-            <figcaption><strong>Betalningsflöde</strong><span>App &amp; verktyg</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="blogg">
-            <img src="img/Projekt/blueCv.JPG" alt="CV-sida" loading="lazy" />
-            <figcaption><strong>CV-sida</strong><span>Personligt</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/lilaHigh.JPG" alt="Lila konceptsida" loading="lazy" />
-              <figcaption><strong>Lila koncept</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="foretag" data-tech="HTML · CSS · JS · AI-chatt">
-            <a href="https://lastudio.se/" target="_blank" rel="noopener">
-              <img src="img/Projekt/gooniesNYSmalBred.JPG" alt="LA Studio" loading="lazy" />
-              <figcaption><strong>LA Studio</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <img src="img/Projekt/100Procent.JPG" alt="Kampanjsida" loading="lazy" />
-            <figcaption><strong>100 procent</strong><span>Kampanj</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag" data-tech="HTML · CSS · Swiper">
-            <a href="https://kind-beach-09d973303.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/mindyhög.JPG" alt="Mindy" loading="lazy" />
-              <figcaption><strong>Mindy</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="blogg">
-            <img src="img/Projekt/labloggLila.JPG" alt="LA-bloggen" loading="lazy" />
-            <figcaption><strong>LA-bloggen</strong><span>Blogg</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="app" data-tech="JavaScript · localStorage">
-            <img src="img/Projekt/todo.JPG" alt="Att göra-lista" loading="lazy" />
-            <figcaption><strong>Att göra-lista</strong><span>App &amp; verktyg</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <img src="img/Projekt/segelbat.JPG" alt="Segelbåt" loading="lazy" />
-            <figcaption><strong>Segelbåt</strong><span>Kampanj</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag">
-            <img src="img/Projekt/labobred.JPG" alt="Labo" loading="lazy" />
-            <figcaption><strong>Labo</strong><span>Företag</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag">
-            <a href="https://lastudio.se/" target="_blank" rel="noopener">
-              <img src="img/Projekt/gooniesNY1.JPG" alt="LA Studio guld" loading="lazy" />
-              <figcaption><strong>LA Studio guld</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="blogg">
-            <img src="img/lapp.JPG" alt="Anteckningssida" loading="lazy" />
-            <figcaption><strong>Anteckningar</strong><span>Personligt</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag">
-            <img src="img/Projekt/hotel.JPG" alt="Hotellsida" loading="lazy" />
-            <figcaption><strong>Hotell</strong><span>Företag</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag">
-            <img src="img/Projekt/labohigh2.JPG" alt="Labo mörk" loading="lazy" />
-            <figcaption><strong>Labo mörk</strong><span>Företag</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <img src="img/Projekt/la23long.JPG" alt="LA 2023" loading="lazy" />
-            <figcaption><strong>LA 2023</strong><span>Kampanj</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag" data-tech="HTML · CSS · AOS">
-            <a href="https://lemon-meadow-077f12703.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/frisk.JPG" alt="Friskvård" loading="lazy" />
-              <figcaption><strong>Friskvård</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <img src="img/Projekt/lalang2.JPG" alt="LA lång" loading="lazy" />
-            <figcaption><strong>LA lång</strong><span>Kampanj</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="app" data-tech="JavaScript · Sök-API">
-            <a href="https://thankful-plant-0c9845803.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/cartoonSok.JPG" alt="Bildsök" loading="lazy" />
-              <figcaption><strong>Bildsök</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="app" data-tech="JavaScript · Bildgalleri">
-            <img src="img/Projekt/imageGalleyZelda.JPG" alt="Zelda-galleri" loading="lazy" />
-            <figcaption><strong>Zelda-galleri</strong><span>App &amp; verktyg</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="kampanj">
-            <a href="https://proud-grass-05d5e2e03.4.azurestaticapps.net/" target="_blank" rel="noopener">
-              <img src="img/Projekt/lila2high.JPG" alt="Lila 2" loading="lazy" />
-              <figcaption><strong>Lila 2</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-          <figure class="case-card" data-cat="app">
-            <img src="img/Projekt/anstallda.JPG" alt="Medarbetarvy" loading="lazy" />
-            <figcaption><strong>Medarbetarvy</strong><span>App &amp; verktyg</span></figcaption>
-          </figure>
-          <figure class="case-card" data-cat="foretag">
-            <a href="https://polite-mushroom-04e2c0e03.4.azurestaticapps.net" target="_blank" rel="noopener">
-              <img src="img/Projekt/laovarderlig.JPG" alt="Ovärderlig" loading="lazy" />
-              <figcaption><strong>Ovärderlig</strong><span>Besök sajten →</span></figcaption>
-            </a>
-          </figure>
-        </div>
-
-        <div class="show-all-wrap">
-          <button class="btn btn-outline" type="button" id="showAllBtn">
-            Visa alla
-          </button>
+          <p class="work-more" data-reveal>
+            Ett urval av 60+ byggda webbplatser — fler exempel visar jag gärna
+            på ett <a href="#about">kostnadsfritt första möte</a>.
+          </p>
         </div>
       </section>
 
@@ -1006,7 +1032,7 @@
           </svg>
         </button>
       </div>
-      <div class="chat-box" id="chatBox">
+      <div class="chat-box" id="chatBox" data-lenis-prevent>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-typing" id="chatTyping" hidden>
           <span></span><span></span><span></span>
@@ -1034,7 +1060,7 @@
     </div>
 
     <!-- ===== Lightbox för kundcase ===== -->
-    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Kundcase">
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Skapad hemsida">
       <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
       <figure class="lightbox-inner">
         <button class="icon-btn lightbox-close" id="lightboxClose" type="button" aria-label="Stäng">
@@ -1052,8 +1078,8 @@
             <path d="m9 18 6-6-6-6" />
           </svg>
         </button>
-        <div class="lightbox-img-wrap">
-          <img id="lightboxImg" src="" alt="" />
+        <div class="lightbox-img-wrap" data-lenis-prevent>
+          <img id="lightboxImg" alt="" />
         </div>
         <figcaption class="lightbox-caption">
           <strong class="font-alt" id="lightboxTitle"></strong>

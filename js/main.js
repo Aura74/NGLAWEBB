@@ -2,7 +2,7 @@
    LA-Studio — main.js
    Vanilla JS: nav, mobilmeny, scroll-reveals, tema, effektväljare
    (Essential/Balanced/Cinematic), preloader, split-text-hero, magnetiska
-   CTA, masonry-parallax, case-filter, statistikräknare, omdömes-karusell
+   CTA, arbetsgalleri med lightbox, statistikräknare, omdömes-karusell
    (Swiper), kontaktformulär (demo), AI-chatt med lokal fallback.
    ========================================================================== */
 
@@ -14,6 +14,16 @@
   var PERF_KEY = "ngla:perfMode";
   var lenis = null;
   var fmtReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Lås sidans scroll bakom meny/lightbox. Måste ligga på <html> — html har
+     overflow-x: hidden, och då förs body:s overflow inte vidare till fönstret. */
+  function lockScroll(lock) {
+    root.classList.toggle("is-locked", lock);
+    if (lenis) {
+      if (lock) lenis.stop();
+      else lenis.start();
+    }
+  }
 
   /* ===== Toast ===== */
   var toastEl = document.getElementById("toast");
@@ -110,7 +120,7 @@
       panel.classList.add("is-open");
       overlay.classList.add("is-open");
     });
-    document.body.style.overflow = "hidden";
+    lockScroll(true);
     menuOpen.setAttribute("aria-expanded", "true");
     menuClose.focus();
   }
@@ -118,7 +128,7 @@
   function closeMenu() {
     panel.classList.remove("is-open");
     overlay.classList.remove("is-open");
-    document.body.style.overflow = "";
+    lockScroll(false);
     menuOpen.setAttribute("aria-expanded", "false");
     setTimeout(function () {
       panel.hidden = true;
@@ -218,6 +228,9 @@
 
   /* ===== Herovideo: pausa när den inte syns ===== */
   var heroVideo = document.getElementById("heroVideo");
+  if (heroVideo && PERF !== "essential" && heroVideo.getAttribute("data-src")) {
+    heroVideo.src = heroVideo.getAttribute("data-src");
+  }
   if (heroVideo && PERF !== "essential" && "IntersectionObserver" in window) {
     new IntersectionObserver(
       function (entries) {
@@ -262,128 +275,65 @@
     });
   }
 
-  /* ===== Masonry-parallax (endast Cinematic) ===== */
-  var caseGrid = document.getElementById("caseGrid");
-  if (caseGrid && PERF === "cinematic" && !fmtReduced) {
-    var cards = Array.prototype.slice.call(caseGrid.querySelectorAll(".case-card"));
-    var ticking = false;
-
-    var updateParallax = function () {
-      ticking = false;
-      var vh = window.innerHeight;
-      var gridRect = caseGrid.getBoundingClientRect();
-      if (gridRect.bottom < -100 || gridRect.top > vh + 100) return;
-      cards.forEach(function (card, i) {
-        if (card.classList.contains("is-hidden")) return;
-        var r = card.getBoundingClientRect();
-        var progress = (r.top + r.height / 2 - vh / 2) / vh; // -0.5 … 0.5
-        var depth = ((i % 3) - 1) * 16; // -16 / 0 / 16 px
-        card.style.transform = "translate3d(0," + (progress * depth).toFixed(1) + "px,0)";
-      });
-    };
-
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(updateParallax);
-        }
-      },
-      { passive: true }
-    );
-    updateParallax();
-  }
-
-  /* ===== Case-filter ===== */
-  var masonry = document.getElementById("caseGrid");
-  var showAllBtn = document.getElementById("showAllBtn");
-
-  function expandCases() {
-    if (masonry) masonry.classList.remove("is-collapsed");
-  }
-
-  if (showAllBtn) {
-    showAllBtn.addEventListener("click", expandCases);
-  }
-
-  var filterBtns = document.querySelectorAll(".filter-btn");
-  filterBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      expandCases(); // filtrering ska alltid visa alla träffar
-      var filter = btn.getAttribute("data-filter");
-      filterBtns.forEach(function (b) {
-        b.classList.toggle("is-active", b === btn);
-      });
-      document.querySelectorAll(".case-card").forEach(function (card) {
-        var show = filter === "all" || card.getAttribute("data-cat") === filter;
-        card.classList.toggle("is-hidden", !show);
-      });
-    });
-  });
-
-  /* ===== Lightbox för kundcase ===== */
+  /* ===== Skapade hemsidor: lightbox med hela skärmdumpen ===== */
+  var workItems = Array.prototype.slice.call(document.querySelectorAll(".work-item"));
   var lightbox = document.getElementById("lightbox");
-  if (lightbox && masonry) {
+  if (lightbox && workItems.length) {
     var lbImg = document.getElementById("lightboxImg");
     var lbTitle = document.getElementById("lightboxTitle");
     var lbMeta = document.getElementById("lightboxMeta");
     var lbVisit = document.getElementById("lightboxVisit");
-    var lbCards = [];
+    var lbWrap = lightbox.querySelector(".lightbox-img-wrap");
+    var lbCloseBtn = document.getElementById("lightboxClose");
     var lbIndex = 0;
-
-    function lbVisible() {
-      return Array.prototype.filter.call(
-        masonry.querySelectorAll(".case-card"),
-        function (c) {
-          return c.offsetParent !== null;
-        }
-      );
-    }
+    var lbOpener = null;
 
     function lbRender() {
-      var card = lbCards[lbIndex];
-      if (!card) return;
-      var img = card.querySelector("img");
-      var link = card.querySelector('a[href^="http"]');
+      var item = workItems[lbIndex];
+      var img = item.querySelector(".work-view img");
+      var url = item.getAttribute("data-url");
       lbImg.src = img.getAttribute("src");
       lbImg.alt = img.getAttribute("alt") || "";
-      lbTitle.textContent = card.querySelector("figcaption strong").textContent;
-      lbMeta.textContent = card.getAttribute("data-tech") || "HTML · CSS · JavaScript";
-      if (link) {
-        lbVisit.href = link.getAttribute("href");
+      lbTitle.textContent = item.getAttribute("data-title");
+      lbMeta.textContent = item.getAttribute("data-tech") || "";
+      if (url) {
+        lbVisit.href = url;
         lbVisit.classList.remove("is-hidden");
       } else {
         lbVisit.classList.add("is-hidden");
       }
+      lbWrap.scrollTop = 0;
     }
 
-    function lbOpen(card) {
-      lbCards = lbVisible();
-      lbIndex = Math.max(0, lbCards.indexOf(card));
+    function lbOpen(index, opener) {
+      lbIndex = index;
+      lbOpener = opener;
       lbRender();
       lightbox.hidden = false;
-      document.body.style.overflow = "hidden";
+      lockScroll(true);
+      lbCloseBtn.focus();
     }
 
     function lbClose() {
       lightbox.hidden = true;
-      document.body.style.overflow = "";
+      lockScroll(false);
+      if (lbOpener) lbOpener.focus({ preventScroll: true });
     }
 
     function lbStep(dir) {
-      lbIndex = (lbIndex + dir + lbCards.length) % lbCards.length;
+      lbIndex = (lbIndex + dir + workItems.length) % workItems.length;
       lbRender();
     }
 
-    masonry.addEventListener("click", function (e) {
-      var card = e.target.closest(".case-card");
-      if (!card) return;
-      e.preventDefault(); // länken nås via "Besök sajten" i lightboxen
-      lbOpen(card);
+    workItems.forEach(function (item, i) {
+      item.querySelectorAll("[data-work-open]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          lbOpen(i, btn);
+        });
+      });
     });
 
-    document.getElementById("lightboxClose").addEventListener("click", lbClose);
+    lbCloseBtn.addEventListener("click", lbClose);
     document.getElementById("lightboxBackdrop").addEventListener("click", lbClose);
     document.getElementById("lightboxPrev").addEventListener("click", function () {
       lbStep(-1);
@@ -693,12 +643,14 @@
 
   /* ========================================================================
      AI-chatt — LA Assistent
-     Lokal kunskapsbank som standard. Vill du koppla Gemini: lägg in en
-     API-nyckel i GEMINI_API_KEY (samma mönster som AI_ChatBot_Liten_Version).
+     Lokal kunskapsbank som standard. Vill du koppla Gemini: lägg nyckeln i en
+     gitignorerad js/apikey.js som sätter window.GEMINI_API_KEY och ladda den
+     före main.js (mönstret från LALilaTech). Hårdkoda aldrig nyckeln här.
      ======================================================================== */
-  var GEMINI_API_KEY = ""; // tom = endast lokal fallback
-  var GEMINI_URL =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
+  var GEMINI_API_KEY = window.GEMINI_API_KEY || ""; // tom = endast lokal fallback
+  // flash-lite först: gemini-flash-latest kan hänga helt utan svar
+  var GEMINI_MODELS = ["gemini-flash-lite-latest", "gemini-flash-latest"];
+  var GEMINI_TIMEOUT = 12000;
   var SYSTEM_PROMPT =
     "Du är LA Assistent på webbyrån LA Studio (Lars Asplund). Svara kort och vänligt på svenska " +
     "om hemsidor, priser (Start från 4 900 kr, Företag från 12 900 kr, Premium från 24 900 kr — engångspris), " +
@@ -718,11 +670,8 @@
   var chatOpened = false;
   var geminiHistory = [];
 
+  // Hälsningar ligger sist så att "hej, vad kostar…" ger prissvaret
   var localBrain = [
-    {
-      triggers: ["hej", "halla", "tjena", "hello", "hallå", "god morgon", "hejsan"],
-      response: "Hej! Jag är LA Assistent. Fråga mig om priser, tidsplaner eller vad LA Studio kan göra för dig.",
-    },
     {
       triggers: ["pris", "kostar", "kostnad", "billig", "offert", "paket"],
       response:
@@ -749,6 +698,10 @@
         "Alla sajter byggs **responsiva** och snabba, med SEO-grund, egen domän och SSL. Jag hjälper även till med webbhotell och e-postadresser.",
     },
     {
+      triggers: ["hej", "halla", "tjena", "hello", "hallå", "god morgon", "hejsan"],
+      response: "Hej! Jag är LA Assistent. Fråga mig om priser, tidsplaner eller vad LA Studio kan göra för dig.",
+    },
+    {
       triggers: ["tack", "tackar", "toppen", "perfekt"],
       response: "Varsågod! Hör av dig om du undrar något mer. 😊",
     },
@@ -765,44 +718,83 @@
     return safe.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
   }
 
+  // Matchar början av ord — annars träffar "ring" i "kring" och "ai" i "mail"
   function localResponse(input) {
     var n = input.toLowerCase().replace(/[?!.,]/g, "");
+    var words = n.split(/\s+/);
+    function hit(trigger) {
+      if (trigger.indexOf(" ") !== -1) return n.indexOf(trigger) !== -1;
+      return words.some(function (w) {
+        return w.indexOf(trigger) === 0;
+      });
+    }
     for (var i = 0; i < localBrain.length; i++) {
-      for (var t = 0; t < localBrain[i].triggers.length; t++) {
-        if (n.indexOf(localBrain[i].triggers[t]) !== -1) return localBrain[i].response;
-      }
+      if (localBrain[i].triggers.some(hit)) return localBrain[i].response;
     }
     return localFallback;
   }
 
-  function callGemini(message) {
-    geminiHistory.push({ role: "user", parts: [{ text: message }] });
-    return fetch(GEMINI_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-goog-api-key": GEMINI_API_KEY,
-      },
-      body: JSON.stringify({
-        contents: geminiHistory,
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        generationConfig: { temperature: 0.8, maxOutputTokens: 512 },
-      }),
-    })
+  function askGeminiModel(model) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () {
+      ctrl.abort();
+    }, GEMINI_TIMEOUT);
+    return fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent",
+      {
+        method: "POST",
+        signal: ctrl.signal,
+        headers: {
+          "Content-Type": "application/json",
+          "X-goog-api-key": GEMINI_API_KEY,
+        },
+        body: JSON.stringify({
+          contents: geminiHistory,
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          generationConfig: { temperature: 0.8, maxOutputTokens: 512 },
+        }),
+      }
+    )
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();
       })
       .then(function (data) {
-        var text =
-          (data.candidates &&
-            data.candidates[0] &&
-            data.candidates[0].content.parts[0].text) ||
-          localFallback;
+        var cand = data.candidates && data.candidates[0];
+        var parts = (cand && cand.content && cand.content.parts) || [];
+        var text = parts
+          .map(function (p) {
+            return p.text || "";
+          })
+          .join("")
+          .trim();
+        if (!text) throw new Error("Tomt svar");
+        return text;
+      })
+      .finally(function () {
+        clearTimeout(timer);
+      });
+  }
+
+  function callGemini(message) {
+    geminiHistory.push({ role: "user", parts: [{ text: message }] });
+    var attempt = Promise.reject();
+    GEMINI_MODELS.forEach(function (model) {
+      attempt = attempt.catch(function () {
+        return askGeminiModel(model);
+      });
+    });
+    return attempt.then(
+      function (text) {
         geminiHistory.push({ role: "model", parts: [{ text: text }] });
         if (geminiHistory.length > 30) geminiHistory = geminiHistory.slice(-30);
         return text;
-      });
+      },
+      function (err) {
+        geminiHistory.pop(); // inget svar — ta bort frågan ur historiken
+        throw err;
+      }
+    );
   }
 
   function addChatMsg(text, sender) {

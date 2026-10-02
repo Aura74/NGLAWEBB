@@ -1,7 +1,7 @@
 # LA-Studio — Webbyrån (NGLAWEBB)
 
 One-page-sajt för LA Studio (lastudio.se) — Lars Asplunds webbyrå. Fullskärms-videohero med
-split-text-reveal, team-kort med hover-overlay, filtrerbart kundcase-galleri, omdömeskarusell,
+split-text-reveal, team-kort med hover-overlay, kurerat arbetsgalleri i webbläsarramar, omdömeskarusell,
 prispaket i kr, kontaktformulär och AI-chatt. Moderniserad + premiumuppgraderad 2026-07:
 responsiv, dark mode, effektväljare i tre nivåer, preloader, egen 404.
 
@@ -29,19 +29,20 @@ NGLAWEBB/
 ├── js/main.js                 # All logik (se Features nedan)
 ├── stad2-web.mp4              # Komprimerad herovideo (används)
 ├── stad2.mp4                  # Original 34 MB (används EJ)
-└── img/                       # icons/, pepole/, Projekt/, hero-poster.jpg
+└── img/                       # icons/, pepole/, work/ (galleriets skärmdumpar), hero-poster.jpg
+                               # (Projekt/ = gamla galleribilder, används inte längre)
 ```
 
 ## Sektioner
 
 | # | Sektion (id) | Innehåll |
 |---|---|---|
-| 1 | Hero (`#home`) | Video, split-text-titel "webbyrån", CTA |
+| 1 | Hero (`#home`) | Video med gradient-scrim, eyebrow + split-text-titel + guldlinje + CTA (inga textplattor) |
 | 2 | Om (`#intro`) | Citat + textspalter + 4 team-kort med hover-overlay |
 | 3 | Hörnstenar (`#getStarted`) | 3 features + statistikband med räknare (60+ sajter…) |
 | 4 | Koncept (`#transfer`) | Mörk split-sektion |
 | 5 | LA-Studio (`#portfolio`) | Split-sektion med laptop |
-| 6 | Kundcase (`#demo`) | Filterbar + masonry med case-kort; klick öppnar **lightbox** (stor bild, `data-tech`-taggar, "Besök sajten", piltangenter) |
+| 6 | Skapade hemsidor (`#demo`) | 5 utvalda sajter i webbläsarramar: 1 "utvalt projekt" (stor ram + text) + 2×2-rutnät (svepbar rad på mobil). Hover rullar skärmdumpen förbi i ramen; klick öppnar **lightbox** med hela skärmdumpen (rullbar), teknik och "Besök sajten" |
 | 7 | Omdömen (`#testimonials`) | Swiper-karusell, 4 citat (demoinnehåll) |
 | 8 | Pris (`#pricing`) | Start 4 900 / Företag 12 900 (Populärast-badge) / Premium 24 900 — "från", engångspris |
 | 9 | Kalkylator (`#kalkyl`) | Offertkalkylator: paket + tillval → live-summa → mailto med förifylld förfrågan |
@@ -60,13 +61,18 @@ NGLAWEBB/
 - **Dark mode**: toggle i nav, `localStorage: theme`, before-paint-script
 - **Split-text-hero**: tecken-för-tecken (28 ms stagger) i Balanced+Cinematic
 - **Magnetiska CTA-knappar**: endast Cinematic + mus (`translate(x*0.18, y*0.32)`)
-- **Masonry-parallax**: endast Cinematic, djup −16/0/+16 px per kolumnindex
-- **Case-filter**: `data-cat` på korten, `.is-hidden` togglas
+- **Arbetsgalleri**: `.work-item` bär `data-title`/`data-tech`/`data-url`; alla `[data-work-open]` öppnar lightboxen.
+  Hover-rullningen är ren CSS: `translateY(calc(-100% + 62.5cqw))` (62.5cqw = 16:10-fönstrets höjd), så den
+  fungerar för skärmdumpar av alla längder. Av i Essential, på touch och vid `prefers-reduced-motion`
+- **Scroll-lås**: `lockScroll()` sätter `html.is-locked` + `lenis.stop()` (body-overflow räcker inte eftersom html har `overflow-x: hidden`)
+- **Rullbara rutor** (chatt, mobilmeny, lightbox) har `data-lenis-prevent` så att Lenis inte kapar mushjulet
+- **Herovideon** har `data-src` — main.js sätter `src` utom i Essential, så 4,3 MB inte laddas i onödan
 - **Statistikräknare**: IO-triggad count-up (`data-count`)
 - **Kontaktformulär**: demo — validering + toast. Skarpt läge: Formspree/Web3Forms
 - **Bokningsknapp**: stub-toast. Skarpt läge: Cal.com/Calendly
-- **AI-chatt** ("LA Assistent"): lokal kunskapsbank (priser/tid/bokning/AI-kurs). Gemini kan
-  aktiveras genom att sätta `GEMINI_API_KEY` i main.js (mönster från AI_ChatBot_Liten_Version)
+- **AI-chatt** ("LA Assistent"): lokal kunskapsbank (priser/tid/bokning/AI-kurs), matchar ordbörjan.
+  Gemini aktiveras med en gitignorerad `js/apikey.js` som sätter `window.GEMINI_API_KEY` (laddas före main.js).
+  Modellordning flash-lite → flash, 12 s timeout per modell, sedan lokal fallback
 - **Preloader**: pulserande yxa; hoppas över vid perf-byte (`sessionStorage: ngla:skipPreloader`) och i Essential
 - **Lenis-integration**: alla ankarlänkar går via `lenis.scrollTo`; instansen exponeras som `window.__lenis`
 
@@ -81,6 +87,15 @@ NGLAWEBB/
 - `border-radius: 2px`, hover max `translateY(-3px)`, brandtonade flerskiktsskuggor
 - Rubriker med flankerande guldlinjer
 
+## Uppdatera galleriet (Skapade hemsidor)
+
+1. Ta en skärmdump av sajten: 1440×900-viewport, scrolla igenom (för lazy-innehåll), dölj cookie-banner och
+   flytande knappar, `fullPage`-skärmdump → beskär till de översta **2700 px** (3 skärmar) → skala till
+   **1280 px bredd** → WebP q76 i `img/work/`. (Puppeteer-core + sharp; `prefers-reduced-motion: reduce`
+   gör att reveals syns direkt.)
+2. Kopiera ett `<article class="work-item work-card">` i `index.html`, byt bild, `width/height`, `data-*`,
+   namn, kategori och numrering. Håll antalet kort i rutnätet jämnt (2×2) så nederkanten blir rak.
+
 ## How to Run
 
 Öppna `index.html` direkt, eller `npx serve .`
@@ -88,8 +103,8 @@ NGLAWEBB/
 ## Mobile / Responsive
 
 - Breakpoints: **1200 / 1024 / 768 / 480**; hamburgermeny <1024 med X-stängknapp
-- Masonry 4→3→2→1 kolumner; case-bildtexter alltid synliga på touch; team-overlay togglas med tapp
-- Galleriet visar bara 3 case + "Visa alla"-knapp på ≤768px (filterklick expanderar också)
+- Arbetsgalleriet: utvalt projekt staplas <1024; 2×2-rutnätet blir svepbar rad med scroll-snap ≤768 (kort `min(84%, 440px)`)
+- Team-overlay togglas med tapp
 - Chatten blir nästan fullbredd <480; `overflow-x: hidden` på html + body
 
 ## Browser support
