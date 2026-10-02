@@ -89,7 +89,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease, color 0.3s ease;
@@ -632,7 +632,7 @@ button {
   gap: 0.85em;
   margin: 0 0 24px;
   font-size: 26px;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.12em;
   text-align: center;
 }
 
@@ -657,7 +657,7 @@ button {
 .head-title {
   margin: 0 0 14px;
   font-size: clamp(22px, 4vw, 30px);
-  letter-spacing: 0.4em;
+  letter-spacing: 0.12em;
   line-height: 1.5;
 }
 
@@ -772,19 +772,19 @@ button {
 .team-item-detail h4 {
   margin: 0 0 8px;
   font-size: 15px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.12em;
 }
 
 .team-item-detail p {
   margin: 0 0 14px;
-  font-size: 13px;
+  font-size: 15px;
   color: inherit;
   opacity: 0.75;
 }
 
 .team-item-detail a {
   color: inherit;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .team-item:hover .team-item-image::after,
@@ -814,15 +814,16 @@ button {
 
 .team-item-name {
   margin-top: 22px;
-  font-size: 14px;
-  letter-spacing: 0.4em;
+  font-size: 16px;
+  letter-spacing: 0.12em;
 }
 
 .team-item-role {
   margin-top: 4px;
-  font-size: 11px;
-  letter-spacing: 0.4em;
+  font-size: 13px;
+  letter-spacing: 0.08em;
   color: var(--muted);
+  text-transform: none;
 }
 
 /* Touch: overlay togglas med tapp (js-active) istället för hover */
@@ -863,14 +864,14 @@ button {
 
 .feature-title {
   margin: 0 0 20px;
-  font-size: 14px;
-  letter-spacing: 0.4em;
+  font-size: 17px;
+  letter-spacing: 0.12em;
 }
 
 .feature-text {
   margin: 0;
   color: var(--text-soft);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.85;
   text-align: justify;
@@ -895,8 +896,8 @@ button {
 
 .split-text h3 {
   margin: 0 0 28px;
-  font-size: 21px;
-  letter-spacing: 0.3em;
+  font-size: 24px;
+  letter-spacing: 0.12em;
 }
 
 .split-text p {
@@ -1034,7 +1035,7 @@ button {
 .work-title {
   margin: 0 0 8px;
   font-size: clamp(26px, 3vw, 36px);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.1em;
   line-height: 1.2;
 }
 
@@ -1085,8 +1086,8 @@ button {
   gap: 10px;
   padding: 10px 0;
   color: var(--text);
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-decoration: none;
 }
 
@@ -1131,8 +1132,8 @@ button {
 
 .work-name {
   margin: 0 0 4px;
-  font-size: 15px;
-  letter-spacing: 0.3em;
+  font-size: 17px;
+  letter-spacing: 0.1em;
 }
 
 .work-meta .work-cat {
@@ -1242,9 +1243,11 @@ button {
   margin: 0 -24px 30px;
   padding: 0;
   list-style: none;
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 2px;
+  color: var(--text-soft);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  line-height: 1.65;
 }
 
 .pricing-list li {
@@ -1271,7 +1274,7 @@ button {
 .pricing-per {
   margin-bottom: 26px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .pricing-cta {
@@ -1653,7 +1656,7 @@ button {
   }
 
   .section-title {
-    letter-spacing: 0.3em;
+    letter-spacing: 0.12em;
     font-size: 22px;
   }
 
@@ -1669,7 +1672,7 @@ button {
 
 @media (max-width: 480px) {
   body {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .hero-sub {
@@ -1681,12 +1684,12 @@ button {
   }
 
   .section-title {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     font-size: 19px;
   }
 
   .head-title {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
   }
 
   .perf-widget {
@@ -1987,8 +1990,8 @@ html.skip-preloader .preloader,
 }
 
 .contact-mail {
-  font-size: 12px;
-  letter-spacing: 0.25em;
+  font-size: 15px;
+  letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -2001,8 +2004,8 @@ html.skip-preloader .preloader,
 
 .contact-form h3 {
   margin: 0 0 24px;
-  font-size: 15px;
-  letter-spacing: 0.3em;
+  font-size: 18px;
+  letter-spacing: 0.12em;
 }
 
 .contact-form label {
@@ -2013,8 +2016,8 @@ html.skip-preloader .preloader,
 .contact-form label span {
   display: block;
   margin-bottom: 6px;
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -2050,9 +2053,9 @@ html.skip-preloader .preloader,
 
 .form-note {
   margin: 18px 0 0;
-  font-size: 11.5px;
+  font-size: 14px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* ===== 25. AI-chatt ===== */
@@ -2458,12 +2461,12 @@ html.skip-preloader .preloader,
 
 .calc-row-name {
   flex: 1;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .calc-row-price {
-  font-size: 12px;
-  letter-spacing: 1px;
+  font-size: 15px;
+  letter-spacing: 0.02em;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -2531,7 +2534,7 @@ html.skip-preloader .preloader,
 
 .calc-note {
   margin: 16px 0 0;
-  font-size: 11.5px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--muted);
 }
@@ -2560,8 +2563,8 @@ html.skip-preloader .preloader,
   border: none;
   background: transparent;
   text-align: left;
-  font-size: 13px;
-  letter-spacing: 0.15em;
+  font-size: 15px;
+  letter-spacing: 0.05em;
   cursor: pointer;
   color: var(--text);
   transition: color 0.2s ease;
@@ -2607,7 +2610,7 @@ html.skip-preloader .preloader,
   margin: 0;
   padding: 0 4px 22px;
   max-width: 640px;
-  font-size: 14.5px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.8;
   color: var(--text-soft);
@@ -2755,7 +2758,7 @@ html.skip-preloader .preloader,
   }
 
   .calc-row-name {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .lightbox {
@@ -2839,9 +2842,9 @@ html.skip-preloader .preloader,
 
 .process-title {
   margin: 0 0 6px;
-  font-size: 14px;
-  letter-spacing: 0.35em;
-  text-indent: 0.35em;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-indent: 0;
 }
 
 .process-time {
@@ -2858,7 +2861,7 @@ html.skip-preloader .preloader,
   text-wrap: pretty;
   margin: 0 auto;
   color: var(--text-soft);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.8;
 }
