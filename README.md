@@ -1,8 +1,8 @@
 # LA-Studio — Webbyrån (NGLAWEBB)
 
-One-page-sajt för LA Studio (lastudio.se) — Lars Asplunds webbyrå. Fullskärms-videohero med
+One-page-sajt för LA Studio (www.larsasplund.com) — Lars Asplunds webbyrå (testsida/demo). Fullskärms-videohero med
 split-text-reveal, team-kort med hover-overlay, kurerat arbetsgalleri i webbläsarramar, omdömeskarusell,
-prispaket i kr, kontaktformulär och AI-chatt. Moderniserad + premiumuppgraderad 2026-07:
+process i fyra steg, prispaket i kr, kontaktformulär och AI-chatt. Moderniserad + premiumuppgraderad 2026-07:
 responsiv, dark mode, effektväljare i tre nivåer, preloader, egen 404.
 
 ## Tech Stack
@@ -14,8 +14,8 @@ responsiv, dark mode, effektväljare i tre nivåer, preloader, egen 404.
 | Smooth scroll | Lenis 1.1.14 via CDN — **endast i Cinematic-läget** |
 | Karusell | Swiper 11 via CDN (omdömen) |
 | Scroll-reveals | Egen IntersectionObserver (ersatte WOW.js) |
-| Ikoner | Inline SVG + lokala icons8-PNG:er |
-| Hero-video | `stad2-web.mp4` (4,3 MB, 1080p crf28) + poster. Original `stad2.mp4` (34 MB) kvar som källa |
+| Ikoner | Endast inline SVG (guldlinjeikoner, stroke 1.2–1.6) — inga icons8-PNG:er längre |
+| Hero-video | `stad2-web.mp4` (2,1 MB, 1080p) för liggande skärm, `stad2-mobil.mp4` (1,1 MB, stående 720×1280-beskärning) för stående. 4K-originalet `stad2.mp4` (34 MB) är källan |
 | Deploy | Azure Static Web Apps via GitHub Actions (`staticwebapp.config.json` styr 404) |
 
 ## Projektstruktur
@@ -27,10 +27,15 @@ NGLAWEBB/
 ├── staticwebapp.config.json   # Azure SWA: 404-override
 ├── css/style.css              # All styling (variabler, dark mode, perf-lägen)
 ├── js/main.js                 # All logik (se Features nedan)
-├── stad2-web.mp4              # Komprimerad herovideo (används)
-├── stad2.mp4                  # Original 34 MB (används EJ)
-└── img/                       # icons/, pepole/, work/ (galleriets skärmdumpar), hero-poster.jpg
-                               # (Projekt/ = gamla galleribilder, används inte längre)
+├── stad2-web.mp4              # Herovideo, liggande 1080p (används)
+├── stad2-mobil.mp4            # Herovideo, stående 720×1280 (används på stående skärm)
+├── stad2.mp4                  # 4K-original 34 MB (används EJ — källa för nya kodningar)
+└── img/
+    ├── work/                  # Galleriets skärmdumpar (WebP 1280 px)
+    ├── logo/                  # Logovarianter (signatur, cirkel, guld) — sparade, används inte just nu
+    ├── icons/lagul2.png       # Textloggan (nav, preloader, footer, 404)
+    ├── pepole/                # Team-korten
+    └── lars.jpg, hero-poster.jpg, koncept-mote.jpg, laptop-kod.jpg
 ```
 
 ## Sektioner
@@ -43,16 +48,17 @@ NGLAWEBB/
 | 4 | Koncept (`#transfer`) | Mörk split-sektion |
 | 5 | LA-Studio (`#portfolio`) | Split-sektion med laptop |
 | 6 | Skapade hemsidor (`#demo`) | 5 utvalda sajter i webbläsarramar: 1 "utvalt projekt" (stor ram + text) + 2×2-rutnät (svepbar rad på mobil). Hover rullar skärmdumpen förbi i ramen; klick öppnar **lightbox** med hela skärmdumpen (rullbar), teknik och "Besök sajten" |
-| 7 | Omdömen (`#testimonials`) | Swiper-karusell, 4 citat (demoinnehåll) |
-| 8 | Pris (`#pricing`) | Start 4 900 / Företag 12 900 (Populärast-badge) / Premium 24 900 — "från", engångspris |
-| 9 | Kalkylator (`#kalkyl`) | Offertkalkylator: paket + tillval → live-summa → mailto med förifylld förfrågan |
-| 10 | FAQ (`#faq`) | Accordion, 6 vanliga frågor (en öppen åt gången) |
-| 11 | Kontakt (`#about`) | Om mig + signaturlogga, bokningsknapp (stub), kontaktformulär (demo) |
-| 12 | Footer | Textlogga, GitHub + e-postikon (endast verifierade kanaler), till-toppen uppe till höger |
+| 7 | Omdömen (`#testimonials`) | Swiper-karusell, 4 påhittade citat **tydligt märkta som exempel** (ingress + "Exempel"-etikett på varje kort + "Exempelkund · bransch"). Byt mot riktiga citat och ta bort märkningen när sådana finns |
+| 8 | Så går det till (`#process`) | 4 steg: Första mötet / Design / Utveckling / Lansering. Guldringar med siffror + tunn linje som ritas in (scaleX); 2×2 <1024, lodrät tidslinje ≤768 |
+| 9 | Pris (`#pricing`) | Start 4 900 / Företag 12 900 (Populärast-badge på kortkanten) / Premium 24 900 — guld-SVG: dokument / portfölj / diamant |
+| 10 | Kalkylator (`#kalkyl`) | Offertkalkylator: paket + tillval → live-summa → mailto med förifylld förfrågan |
+| 11 | FAQ (`#faq`) | Accordion, 6 vanliga frågor (en öppen åt gången) |
+| 12 | Kontakt (`#about`) | Om mig med porträtt (`img/lars.jpg`, 148 px + förskjuten guldram), bokningsknapp (stub), kontaktformulär (demo) |
+| 13 | Footer | Textlogga, GitHub + e-postikon, rund till-toppen-knapp (SVG) uppe till höger |
 
 **Tjänster i team-korten:** Design / Utveckling / Synlighet / Support — Dallas-bilderna är medveten charm.
 **E-post:** `lars@lastudio.se` används överallt — **skapa adressen hos domänleverantören före skarp lansering.**
-**SEO:** OG-taggar + twitter-card (domän `lastudio.se` — uppdatera vid flytt) + JSON-LD ProfessionalService.
+**SEO:** OG-taggar + twitter-card + JSON-LD ProfessionalService, alla på `https://www.larsasplund.com/` (lastudio.se är bara en parkeringssida hos one.com).
 **Cinematic-extra:** guld scroll-progressbar + filmgrain på heron.
 
 ## Features i js/main.js
@@ -66,7 +72,8 @@ NGLAWEBB/
   fungerar för skärmdumpar av alla längder. Av i Essential, på touch och vid `prefers-reduced-motion`
 - **Scroll-lås**: `lockScroll()` sätter `html.is-locked` + `lenis.stop()` (body-overflow räcker inte eftersom html har `overflow-x: hidden`)
 - **Rullbara rutor** (chatt, mobilmeny, lightbox) har `data-lenis-prevent` så att Lenis inte kapar mushjulet
-- **Herovideon** har `data-src` — main.js sätter `src` utom i Essential, så 4,3 MB inte laddas i onödan
+- **Herovideon** har `data-src` + `data-src-portrait` — main.js sätter `src` utom i Essential, och väljer den stående
+  beskärningen när `(orientation: portrait)` matchar (en stående telefon visar ändå bara mitten av den liggande videon)
 - **Statistikräknare**: IO-triggad count-up (`data-count`)
 - **Kontaktformulär**: demo — validering + toast. Skarpt läge: Formspree/Web3Forms
 - **Bokningsknapp**: stub-toast. Skarpt läge: Cal.com/Calendly
@@ -84,6 +91,7 @@ NGLAWEBB/
   och **champagneguld** i mörkt läge för intro-loggan (invert + sepia-kedja)
 - Hörnstenar-ikoner: inline SVG-linjeikoner i guld (sparkles / kod / hjärta), stroke 1.4
 - Foton: `img/koncept-mote.jpg` + `img/laptop-kod.jpg` — Unsplash, nedladdade lokalt (ersatte tecknade illustrationer)
+- Porträtt: `img/lars.jpg` är bara 280×280 — visas max 148 px (112 px på mobil) så den inte blir suddig
 - `border-radius: 2px`, hover max `translateY(-3px)`, brandtonade flerskiktsskuggor
 - Rubriker med flankerande guldlinjer
 
@@ -95,6 +103,18 @@ NGLAWEBB/
    gör att reveals syns direkt.)
 2. Kopiera ett `<article class="work-item work-card">` i `index.html`, byt bild, `width/height`, `data-*`,
    namn, kategori och numrering. Håll antalet kort i rutnätet jämnt (2×2) så nederkanten blir rak.
+
+## Koda om herovideon
+
+Från 4K-originalet med ffmpeg (t.ex. `npm i ffmpeg-static` i en temp-mapp). Faststart gör att videon börjar
+spela direkt medan resten laddas (progressiv strömning — HLS behövs inte för en 13 s bakgrundsloop):
+
+```
+ffmpeg -i stad2.mp4 -an -vf "scale=1920:1080:flags=lanczos" -c:v libx264 -preset veryslow -tune film -crf 33 -pix_fmt yuv420p -movflags +faststart stad2-web.mp4
+ffmpeg -i stad2.mp4 -an -vf "crop=1216:2160,scale=720:1280:flags=lanczos" -c:v libx264 -preset veryslow -tune film -crf 32 -pix_fmt yuv420p -movflags +faststart stad2-mobil.mp4
+```
+
+crf 33 är gränsen — vid 35 syns suddig text i fasaderna. H.264 (inte AV1/VP9) för att avkodningen ska vara lätt på äldre datorer.
 
 ## How to Run
 

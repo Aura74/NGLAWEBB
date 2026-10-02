@@ -10,7 +10,7 @@
     />
     <link rel="icon" type="image/png" href="img/icons/lagul2.png" />
 
-    <!-- Delningskort (Open Graph + Twitter). Byt domän om sajten flyttar. -->
+    <!-- Delningskort (Open Graph + Twitter). Sajten ligger på www.larsasplund.com (Azure SWA). -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LA Studio" />
     <meta property="og:title" content="LA-Studio — Webbyrån" />
@@ -18,8 +18,8 @@
       property="og:description"
       content="Din partner för digitala lösningar och webbutveckling. Över 60 byggda webbplatser — design, utveckling, SEO och support."
     />
-    <meta property="og:url" content="https://lastudio.se/" />
-    <meta property="og:image" content="https://lastudio.se/img/hero-poster.jpg" />
+    <meta property="og:url" content="https://www.larsasplund.com/" />
+    <meta property="og:image" content="https://www.larsasplund.com/img/hero-poster.jpg" />
     <meta property="og:locale" content="sv_SE" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="LA-Studio — Webbyrån" />
@@ -27,7 +27,7 @@
       name="twitter:description"
       content="Din partner för digitala lösningar och webbutveckling."
     />
-    <meta name="twitter:image" content="https://lastudio.se/img/hero-poster.jpg" />
+    <meta name="twitter:image" content="https://www.larsasplund.com/img/hero-poster.jpg" />
 
     <script type="application/ld+json">
       {
@@ -35,10 +35,14 @@
         "@type": "ProfessionalService",
         "name": "LA Studio",
         "description": "Webbyrå — design, webbutveckling, SEO och AI-utbildning.",
-        "url": "https://lastudio.se/",
+        "url": "https://www.larsasplund.com/",
         "email": "lars@lastudio.se",
-        "image": "https://lastudio.se/img/hero-poster.jpg",
-        "founder": { "@type": "Person", "name": "Lars Asplund" },
+        "image": "https://www.larsasplund.com/img/hero-poster.jpg",
+        "founder": {
+          "@type": "Person",
+          "name": "Lars Asplund",
+          "image": "https://www.larsasplund.com/img/lars.jpg"
+        },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Gävle",
@@ -167,7 +171,9 @@
 
     <!-- ===== Hero ===== -->
     <header class="hero" id="home">
-      <!-- src sätts av main.js utom i Essential, så videon inte laddas i onödan -->
+      <!-- src sätts av main.js utom i Essential, så videon inte laddas i onödan.
+           Stående skärm får en stående beskärning (720×1280, 1,1 MB) i stället
+           för hela 1080p-videon (2,1 MB). Båda kodade från 4K-originalet stad2.mp4. -->
       <video
         class="hero-video"
         id="heroVideo"
@@ -178,6 +184,7 @@
         preload="metadata"
         poster="img/hero-poster.jpg"
         data-src="stad2-web.mp4"
+        data-src-portrait="stad2-mobil.mp4"
       ></video>
       <div class="hero-fallback" aria-hidden="true"></div>
       <div class="hero-scrim" aria-hidden="true"></div>
@@ -190,7 +197,7 @@
         <p class="hero-sub font-alt">Lars Asplund</p>
         <div class="hero-cta">
           <button class="btn btn-light" type="button" data-scroll="#intro">
-            Klicka här
+            Upptäck
           </button>
         </div>
       </div>
@@ -588,51 +595,115 @@
         </div>
       </section>
 
-      <!-- ===== Omdömen ===== -->
+      <!-- ===== Omdömen =====
+           Sajten är en demo: citaten är påhittade och tydligt märkta som exempel
+           (ingress + etikett på varje kort + anonym avsändare). Byt mot riktiga
+           kundcitat och ta bort märkningen när sådana finns. -->
       <section class="page-section section-testimonials" id="testimonials">
         <div class="container">
-          <h2 class="section-title font-alt" data-reveal>Vad kunderna säger</h2>
+          <h2 class="section-title font-alt" data-reveal>Omdömen</h2>
+          <p class="section-lead" data-reveal>
+            Det här är en demosajt, så citaten nedan är exempeltexter — de visar
+            hur sektionen ser ut när riktiga kundomdömen finns på plats.
+          </p>
           <div class="swiper testi-swiper" data-reveal>
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <blockquote class="testi-card">
+                  <span class="testi-tag font-alt">Exempel</span>
                   <p>
                     Lars levererade en sida som kändes betydligt dyrare än den
                     var. Snabb, lyhörd och grym på detaljer.
                   </p>
-                  <footer class="font-alt">Anna R. — Friskvårdsstudio</footer>
+                  <footer class="font-alt">Exempelkund · Friskvårdsstudio</footer>
                 </blockquote>
               </div>
               <div class="swiper-slide">
                 <blockquote class="testi-card">
+                  <span class="testi-tag font-alt">Exempel</span>
                   <p>
                     Från idé till lansering på tre veckor. Bästa investeringen
                     vi gjort digitalt.
                   </p>
-                  <footer class="font-alt">Peter L. — Border Oak</footer>
+                  <footer class="font-alt">Exempelkund · Byggföretag</footer>
                 </blockquote>
               </div>
               <div class="swiper-slide">
                 <blockquote class="testi-card">
+                  <span class="testi-tag font-alt">Exempel</span>
                   <p>
                     Vår bokningsgrad ökade markant efter att nya sajten gick
                     live. Rekommenderas varmt.
                   </p>
-                  <footer class="font-alt">Mindy K. — Salong</footer>
+                  <footer class="font-alt">Exempelkund · Frisörsalong</footer>
                 </blockquote>
               </div>
               <div class="swiper-slide">
                 <blockquote class="testi-card">
+                  <span class="testi-tag font-alt">Exempel</span>
                   <p>
                     AI-utbildningen gav hela teamet superkrafter. Praktisk,
                     rolig och direkt användbar i vardagen.
                   </p>
-                  <footer class="font-alt">Johan S. — Konsultbolag</footer>
+                  <footer class="font-alt">Exempelkund · Konsultbolag</footer>
                 </blockquote>
               </div>
             </div>
             <div class="swiper-pagination"></div>
           </div>
+        </div>
+      </section>
+
+      <!-- ===== Så går det till (process i fyra steg) =====
+           Tidsangivelserna följer FAQ:n: onepager 1–2 veckor, flersidig 3–5 veckor. -->
+      <section class="page-section section-process" id="process">
+        <div class="container">
+          <h2 class="section-title font-alt" data-reveal>Så går det till</h2>
+          <p class="section-lead" data-reveal>
+            Från första idé till färdig sajt i fyra tydliga steg — och du vet
+            alltid var i projektet vi befinner oss.
+          </p>
+
+          <ol class="process-steps">
+            <li class="process-step" data-reveal>
+              <span class="process-num" aria-hidden="true">01</span>
+              <h3 class="process-title font-alt">Första mötet</h3>
+              <p class="process-time">Kostnadsfritt · ca 1 timme</p>
+              <p class="process-text">
+                Vi pratar om dina mål, din målgrupp och vad sajten ska göra för
+                dig. Efteråt får du en tydlig offert och tidsplan — inga
+                överraskningar.
+              </p>
+            </li>
+            <li class="process-step" data-reveal style="--reveal-delay: 0.12s">
+              <span class="process-num" aria-hidden="true">02</span>
+              <h3 class="process-title font-alt">Design</h3>
+              <p class="process-time">Vecka 1–2</p>
+              <p class="process-text">
+                Typografi, färger och bilder som speglar ditt varumärke. Du ser
+                skisser tidigt och vi finslipar tillsammans i två
+                korrekturrundor.
+              </p>
+            </li>
+            <li class="process-step" data-reveal style="--reveal-delay: 0.24s">
+              <span class="process-num" aria-hidden="true">03</span>
+              <h3 class="process-title font-alt">Utveckling</h3>
+              <p class="process-time">Vecka 2–4</p>
+              <p class="process-text">
+                Sajten byggs i ren, snabb kod — responsiv i mobil, surfplatta och
+                dator, med SEO-grund, delningskort och säker https från start.
+              </p>
+            </li>
+            <li class="process-step" data-reveal style="--reveal-delay: 0.36s">
+              <span class="process-num" aria-hidden="true">04</span>
+              <h3 class="process-title font-alt">Lansering</h3>
+              <p class="process-time">Och sedan löpande</p>
+              <p class="process-text">
+                Vi publicerar på din egen domän och du lär dig uppdatera själv.
+                Jag finns kvar för support, förbättringar och nästa steg.
+              </p>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -654,7 +725,10 @@
           <div class="pricing-grid">
             <div class="pricing-item" data-reveal>
               <div class="pricing-icon">
-                <img src="img/icons/icons8-collaboration-50.png" alt="" loading="lazy" />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4M8 13h8M8 17h5" />
+                </svg>
               </div>
               <div class="pricing-title">Start</div>
               <ul class="pricing-list font-alt">
@@ -676,7 +750,10 @@
             <div class="pricing-item is-main" data-reveal style="--reveal-delay: 0.1s">
               <div class="pricing-badge font-alt">Populärast</div>
               <div class="pricing-icon">
-                <img src="img/icons/icons8-briefcase-100.png" alt="" loading="lazy" />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  <rect width="20" height="14" x="2" y="6" rx="2" />
+                </svg>
               </div>
               <div class="pricing-title">Företag</div>
               <ul class="pricing-list font-alt">
@@ -697,7 +774,10 @@
 
             <div class="pricing-item" data-reveal style="--reveal-delay: 0.2s">
               <div class="pricing-icon">
-                <img src="img/icons/icons8-box-100.png" alt="" loading="lazy" />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 3h12l4 6-10 13L2 9Z" />
+                  <path d="M11 3 8 9l4 13 4-13-3-6M2 9h20" />
+                </svg>
               </div>
               <div class="pricing-title">Premium</div>
               <ul class="pricing-list font-alt">
@@ -896,13 +976,16 @@
         <div class="container">
           <div class="contact-grid">
             <div class="contact-about" data-reveal>
-              <img
-                src="img/las23.JPG"
-                alt="Lars Asplund — signatur"
-                class="contact-signature"
-                loading="lazy"
-              />
-              <h2 class="head-title font-alt">Om mig</h2>
+              <div class="about-head">
+                <!-- Bilden är 280×280 — ramen hålls liten så den inte skalas upp och blir suddig -->
+                <figure class="about-portrait">
+                  <img src="img/lars.jpg" alt="Lars Asplund, grundare av LA Studio" width="280" height="280" loading="lazy" />
+                </figure>
+                <div class="about-head-text">
+                  <h2 class="head-title font-alt">Om mig</h2>
+                  <p class="about-role font-alt">Lars Asplund<span class="about-role-sep" aria-hidden="true"> · </span> <span class="about-role-title">Grundare</span></p>
+                </div>
+              </div>
               <p>
                 Jag heter Lars Asplund och driver LA Studio. Jag har byggt över
                 60 webbplatser — från enkla onepagers till e-handel, appar och
@@ -971,13 +1054,15 @@
           </a>
         </div>
         <div class="footer-copy font-alt">
-          <a href="http://www.larsasplund.com" target="_blank" rel="noopener">
+          <a href="https://www.larsasplund.com/" target="_blank" rel="noopener">
             &copy; Lars Asplund <span id="year"></span>
           </a>
         </div>
       </div>
       <a href="#home" class="link-to-top" aria-label="Till toppen" data-scroll="#home">
-        <img src="img/icons/icons8-thick-arrow-pointing-up-50.png" alt="" loading="lazy" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
       </a>
     </footer>
 
@@ -1079,7 +1164,7 @@
           </svg>
         </button>
         <div class="lightbox-img-wrap" data-lenis-prevent>
-          <img id="lightboxImg" alt="" />
+          <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
         </div>
         <figcaption class="lightbox-caption">
           <strong class="font-alt" id="lightboxTitle"></strong>

@@ -229,7 +229,12 @@
   /* ===== Herovideo: pausa när den inte syns ===== */
   var heroVideo = document.getElementById("heroVideo");
   if (heroVideo && PERF !== "essential" && heroVideo.getAttribute("data-src")) {
-    heroVideo.src = heroVideo.getAttribute("data-src");
+    // Stående skärm visar bara mitten av den liggande videon — hämta den beskurna
+    var portraitSrc = heroVideo.getAttribute("data-src-portrait");
+    heroVideo.src =
+      portraitSrc && window.matchMedia("(orientation: portrait)").matches
+        ? portraitSrc
+        : heroVideo.getAttribute("data-src");
   }
   if (heroVideo && PERF !== "essential" && "IntersectionObserver" in window) {
     new IntersectionObserver(

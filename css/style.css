@@ -1223,13 +1223,11 @@ button {
   margin-right: 4px;
 }
 
-.pricing-icon img {
-  height: 44px;
-  width: auto;
-}
-
-:root[data-theme="dark"] .pricing-icon img {
-  filter: invert(0.85);
+/* Tunna guldlinjeikoner (inline SVG): dokument / portfölj / diamant */
+.pricing-icon {
+  display: flex;
+  justify-content: center;
+  color: var(--accent);
 }
 
 .pricing-title {
@@ -1344,22 +1342,27 @@ button {
   color: var(--text);
 }
 
+/* Samma runda form som sociala ikonerna — muted, guld vid hover */
 .link-to-top {
   position: absolute;
   right: 20px;
   bottom: 20px;
-  width: 40px;
-  height: 40px;
-  opacity: 0.35;
-  transition: opacity 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--muted);
+  transition: transform 0.25s var(--ease), color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 
 .link-to-top:hover {
-  opacity: 0.8;
-}
-
-:root[data-theme="dark"] .link-to-top img {
-  filter: invert(0.8);
+  transform: translateY(-2px);
+  color: var(--accent-text);
+  border-color: var(--accent-soft);
 }
 
 /* ===== 16. Scroll-reveals =====
@@ -1848,6 +1851,7 @@ html.skip-preloader .preloader,
 }
 
 .testi-card {
+  position: relative;
   height: 100%;
   margin: 0;
   padding: 30px 28px;
@@ -1855,6 +1859,19 @@ html.skip-preloader .preloader,
   border-radius: 2px;
   background: var(--bg);
   box-shadow: var(--shadow-card);
+}
+
+/* Demomärkning — uppe till höger, i höjd med citattecknet */
+.testi-tag {
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
+  font-size: 9.5px;
+  letter-spacing: 0.25em;
 }
 
 .testi-card::before {
@@ -1905,16 +1922,54 @@ html.skip-preloader .preloader,
   align-items: start;
 }
 
-/* JPG:en har kolsvart bakgrund — screen gör svart genomskinligt mot sektionen */
-.contact-signature {
+/* Porträtt + rubrik. Bilden är bara 280×280 px, så ramen stannar på 148 px
+   (skarp på 2x-skärmar). Den förskjutna guldlinjen gör kanten mot den
+   mörka bakgrunden avsiktlig. */
+.about-head {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  margin-bottom: 30px;
+}
+
+.about-portrait {
+  position: relative;
+  flex: 0 0 148px;
+  margin: 0 10px 10px 0;
+}
+
+.about-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  opacity: 0.6;
+  transform: translate(10px, 10px);
+}
+
+.about-portrait img {
+  position: relative;
   display: block;
-  max-width: 240px;
-  margin-bottom: 28px;
-  mix-blend-mode: screen;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  filter: grayscale(1);
+}
+
+.about-head .head-title {
+  margin-bottom: 8px;
+}
+
+.about-role {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.3em;
 }
 
 .contact-about .head-title {
-  margin-bottom: 22px;
+  margin-bottom: 8px;
 }
 
 .contact-about p {
@@ -2277,8 +2332,22 @@ html.skip-preloader .preloader,
     bottom: 12px;
   }
 
-  .contact-signature {
-    max-width: 190px;
+  .about-head {
+    gap: 24px;
+  }
+
+  .about-portrait {
+    flex-basis: 112px;
+  }
+
+  /* Namn och titel på var sin rad — pricken ska inte hänga i radslutet */
+  .about-role-sep {
+    display: none;
+  }
+
+  .about-role-title {
+    display: block;
+    margin-top: 4px;
   }
 }
 
@@ -2701,5 +2770,176 @@ html.skip-preloader .preloader,
   .lightbox-caption span {
     flex-basis: 100%;
     order: 3;
+  }
+}
+
+/* ===== 33. Så går det till (process i fyra steg) ===== */
+.process-steps {
+  --gap: 40px;
+  --ring: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 52px var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process-step {
+  position: relative;
+  text-align: center;
+}
+
+.process-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ring);
+  height: var(--ring);
+  margin-bottom: 26px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 50%;
+  color: var(--accent-text);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  transition: background 0.35s var(--ease), color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+.process-step:hover .process-num {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Tunn guldlinje från en ring till nästa — ritas in när steget visas */
+.process-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--ring) / 2);
+  left: calc(50% + var(--ring) / 2 + 12px);
+  width: calc(100% + var(--gap) - var(--ring) - 24px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-soft), var(--border));
+  transform-origin: left center;
+}
+
+:root[data-perf="balanced"] .process-step:not(:last-child)::after,
+:root[data-perf="cinematic"] .process-step:not(:last-child)::after {
+  transform: scaleX(0);
+  transition: transform 1s var(--ease-out);
+  transition-delay: calc(var(--reveal-delay, 0s) + 0.35s);
+}
+
+:root[data-perf="balanced"] .process-step.is-revealed:not(:last-child)::after,
+:root[data-perf="cinematic"] .process-step.is-revealed:not(:last-child)::after {
+  transform: none;
+}
+
+.process-title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+}
+
+.process-time {
+  margin: 0 0 16px;
+  color: var(--accent-text);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-transform: uppercase;
+}
+
+.process-text {
+  max-width: 270px;
+  text-wrap: pretty;
+  margin: 0 auto;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+@media (max-width: 1024px) {
+  .process-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Radbrytning efter varannat steg — ingen linje ut i tomma intet */
+  .process-step:nth-child(2n)::after {
+    display: none;
+  }
+}
+
+/* Mobil: lodrät tidslinje med ringen till vänster */
+@media (max-width: 768px) {
+  .process-steps {
+    --ring: 48px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 520px;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: var(--ring) 1fr;
+    column-gap: 20px;
+    padding-bottom: 36px;
+    text-align: left;
+  }
+
+  .process-step:last-child {
+    padding-bottom: 0;
+  }
+
+  .process-num {
+    grid-row: 1 / span 3;
+    margin: 0;
+  }
+
+  .process-step > :not(.process-num) {
+    grid-column: 2;
+  }
+
+  .process-title {
+    padding-top: 12px;
+    text-indent: 0;
+  }
+
+  .process-time {
+    margin-bottom: 10px;
+    text-indent: 0;
+  }
+
+  .process-text {
+    max-width: none;
+    margin: 0;
+  }
+
+  .process-step:not(:last-child)::after,
+  .process-step:nth-child(2n):not(:last-child)::after {
+    display: block;
+    top: calc(var(--ring) + 8px);
+    bottom: 8px;
+    left: calc(var(--ring) / 2);
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, var(--accent-soft), var(--border));
+    transform-origin: center top;
+  }
+
+  :root[data-perf="balanced"] .process-step:not(:last-child)::after,
+  :root[data-perf="cinematic"] .process-step:not(:last-child)::after {
+    transform: scaleY(0);
+  }
+
+  :root[data-perf="balanced"] .process-step.is-revealed:not(:last-child)::after,
+  :root[data-perf="cinematic"] .process-step.is-revealed:not(:last-child)::after {
+    transform: none;
   }
 }
