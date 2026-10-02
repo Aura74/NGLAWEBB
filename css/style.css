@@ -30,7 +30,12 @@
     0 16px 40px rgba(150, 120, 40, 0.12);
 
   --font-body: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
-  --font-alt: Georgia, "Times New Roman", serif;
+  --font-alt: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+
+  /* Ett mått: rubriker 0.12em, etiketter tätare */
+  --track: 0.12em;
+  --track-label: 0.08em;
+  --team-frame: #e6e1d8;
 
   --ease: cubic-bezier(0, 0, 0.58, 1);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -52,6 +57,7 @@
 
   --team-overlay: rgba(16, 15, 14, 0.93);
   --team-overlay-text: #ece9e4;
+  --team-frame: #241f1b;
 
   --accent-text: var(--accent);
 
@@ -142,8 +148,9 @@ button {
 
 .font-alt {
   font-family: var(--font-alt);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--track);
 }
 
 .container {
@@ -176,9 +183,10 @@ button {
   border-radius: 2px;
   background: rgba(34, 34, 34, 0.9);
   color: #fff;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-family: var(--font-alt);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
@@ -322,8 +330,10 @@ button {
   padding: 6px 0;
   border-bottom: 2px solid transparent;
   color: rgba(255, 255, 255, 0.75);
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-family: var(--font-alt);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   text-decoration: none;
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
@@ -432,8 +442,10 @@ button {
   display: block;
   padding: 15px 24px;
   color: #bbb;
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-family: var(--font-alt);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -505,9 +517,10 @@ button {
   gap: 0.9em;
   margin: 0 0 22px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(11px, 1.4vw, 13px);
-  letter-spacing: 0.5em;
-  text-indent: 0.5em; /* kompenserar sista bokstavens spärr */
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-indent: var(--track-label); /* kompenserar sista bokstavens spärr */
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
@@ -524,8 +537,8 @@ button {
   margin: 0;
   color: #fff;
   font-size: clamp(44px, 9.5vw, 116px);
-  letter-spacing: 0.12em;
-  text-indent: 0.12em;
+  letter-spacing: var(--track);
+  text-indent: var(--track);
   line-height: 1.15;
   max-width: 100%;
   overflow-wrap: break-word;
@@ -543,9 +556,10 @@ button {
 .hero-sub {
   margin: 0 0 52px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(13px, 2vw, 19px);
-  letter-spacing: 0.5em;
-  text-indent: 0.5em;
+  font-size: clamp(15px, 2vw, 20px);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-indent: var(--track-label);
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
 }
 
@@ -632,7 +646,7 @@ button {
   gap: 0.85em;
   margin: 0 0 24px;
   font-size: 26px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
   text-align: center;
 }
 
@@ -657,14 +671,14 @@ button {
 .head-title {
   margin: 0 0 14px;
   font-size: clamp(22px, 4vw, 30px);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
   line-height: 1.5;
 }
 
 .head-sub {
   margin: 0 0 12px;
   font-size: 14px;
-  letter-spacing: 3px;
+  letter-spacing: var(--track-label);
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -709,8 +723,8 @@ button {
 }
 
 .intro-grid blockquote footer {
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -724,7 +738,6 @@ button {
   color: var(--text-soft);
   font-weight: 300;
   line-height: 1.8;
-  text-align: justify;
 }
 
 /* ===== 9. Team (hover-effekten!) ===== */
@@ -738,11 +751,20 @@ button {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  aspect-ratio: 4 / 5;
+  background: var(--team-frame);
+  border: 1px solid var(--border);
+  border-radius: 2px;
 }
 
 .team-item-image img {
-  display: block;
-  width: 100%;
+  position: absolute;
+  left: 7%;
+  bottom: 0;
+  width: 86%;
+  height: 94%;
+  object-fit: contain;
+  object-position: center bottom;
   transition: transform 0.5s var(--ease);
 }
 
@@ -772,7 +794,7 @@ button {
 .team-item-detail h4 {
   margin: 0 0 8px;
   font-size: 15px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
 }
 
 .team-item-detail p {
@@ -815,7 +837,7 @@ button {
 .team-item-name {
   margin-top: 22px;
   font-size: 16px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
 }
 
 .team-item-role {
@@ -865,7 +887,7 @@ button {
 .feature-title {
   margin: 0 0 20px;
   font-size: 17px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
 }
 
 .feature-text {
@@ -874,7 +896,6 @@ button {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.85;
-  text-align: justify;
 }
 
 /* ===== 11. Split-sektioner ===== */
@@ -897,14 +918,13 @@ button {
 .split-text h3 {
   margin: 0 0 28px;
   font-size: 24px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
 }
 
 .split-text p {
   font-weight: 300;
   line-height: 1.8;
   opacity: 0.85;
-  text-align: justify;
 }
 
 .split-text .btn {
@@ -1013,8 +1033,8 @@ button {
   gap: 14px;
   margin: 0 0 22px;
   color: var(--accent-text);
-  font-size: 11px;
-  letter-spacing: 0.35em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
 }
 
 .work-eyebrow::after {
@@ -1029,21 +1049,21 @@ button {
 .work-num {
   font-family: var(--font-body);
   color: var(--accent-text);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track-label);
 }
 
 .work-title {
   margin: 0 0 8px;
   font-size: clamp(26px, 3vw, 36px);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--track);
   line-height: 1.2;
 }
 
 .work-cat {
   margin: 0 0 22px;
   color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
 }
 
@@ -1068,8 +1088,8 @@ button {
   border: 1px solid var(--border);
   border-radius: 2px;
   color: var(--muted);
-  font-size: 10.5px;
-  letter-spacing: 0.15em;
+  font-size: 11px;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
 }
 
@@ -1087,7 +1107,7 @@ button {
   padding: 10px 0;
   color: var(--text);
   font-size: 14px;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--track-label);
   text-decoration: none;
 }
 
@@ -1133,7 +1153,7 @@ button {
 .work-name {
   margin: 0 0 4px;
   font-size: 17px;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--track);
 }
 
 .work-meta .work-cat {
@@ -1213,8 +1233,8 @@ button {
   padding: 4px 14px;
   background: var(--accent);
   color: #fff;
-  font-size: 10px;
-  letter-spacing: 0.25em;
+  font-size: 11px;
+  letter-spacing: var(--track-label);
 }
 
 .pricing-from {
@@ -1233,9 +1253,10 @@ button {
 
 .pricing-title {
   margin: 18px 0 32px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: var(--font-alt);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: var(--track);
   text-transform: uppercase;
 }
 
@@ -1333,7 +1354,7 @@ button {
 }
 
 .footer-copy {
-  letter-spacing: 0.5em;
+  letter-spacing: var(--track-label);
 }
 
 .footer-copy a {
@@ -1477,8 +1498,8 @@ button {
 
 .perf-popover-title {
   padding: 6px 10px 10px;
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   color: var(--muted);
 }
 
@@ -1505,8 +1526,10 @@ button {
 
 .perf-option strong {
   display: block;
-  font-size: 12px;
-  letter-spacing: 1px;
+  font-family: var(--font-alt);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
 }
 
@@ -1656,7 +1679,7 @@ button {
   }
 
   .section-title {
-    letter-spacing: 0.12em;
+    letter-spacing: var(--track);
     font-size: 22px;
   }
 
@@ -1684,12 +1707,12 @@ button {
   }
 
   .section-title {
-    letter-spacing: 0.12em;
+    letter-spacing: var(--track);
     font-size: 19px;
   }
 
   .head-title {
-    letter-spacing: 0.12em;
+    letter-spacing: var(--track);
   }
 
   .perf-widget {
@@ -1832,15 +1855,15 @@ html.skip-preloader .preloader,
 
 .stat-num {
   font-size: 38px;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--track);
   line-height: 1.2;
   color: var(--text);
 }
 
 .stat-label {
   margin-top: 6px;
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   color: var(--muted);
 }
 
@@ -1873,8 +1896,8 @@ html.skip-preloader .preloader,
   border: 1px solid var(--border);
   border-radius: 2px;
   color: var(--muted);
-  font-size: 9.5px;
-  letter-spacing: 0.25em;
+  font-size: 11px;
+  letter-spacing: var(--track-label);
 }
 
 .testi-card::before {
@@ -1898,8 +1921,8 @@ html.skip-preloader .preloader,
 }
 
 .testi-card footer {
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   color: var(--muted);
 }
 
@@ -1967,8 +1990,8 @@ html.skip-preloader .preloader,
 .about-role {
   margin: 0;
   color: var(--accent);
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 13px;
+  letter-spacing: var(--track-label);
 }
 
 .contact-about .head-title {
@@ -2005,7 +2028,7 @@ html.skip-preloader .preloader,
 .contact-form h3 {
   margin: 0 0 24px;
   font-size: 18px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
 }
 
 .contact-form label {
@@ -2128,8 +2151,8 @@ html.skip-preloader .preloader,
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
-  letter-spacing: 0.25em;
+  font-size: 14px;
+  letter-spacing: var(--track-label);
 }
 
 .chat-dot {
@@ -2174,8 +2197,8 @@ html.skip-preloader .preloader,
 
 .chat-welcome-title {
   font-family: var(--font-alt);
-  font-size: 14px;
-  letter-spacing: 0.25em;
+  font-size: 18px;
+  letter-spacing: var(--track);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -2428,8 +2451,10 @@ html.skip-preloader .preloader,
 
 .calc-fieldset legend {
   padding: 0 10px;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-family: var(--font-alt);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   color: var(--muted);
 }
 
@@ -2483,8 +2508,8 @@ html.skip-preloader .preloader,
 
 .calc-summary h3 {
   margin: 0 0 18px;
-  font-size: 14px;
-  letter-spacing: 0.3em;
+  font-size: 16px;
+  letter-spacing: var(--track);
 }
 
 .calc-list {
@@ -2517,8 +2542,8 @@ html.skip-preloader .preloader,
 }
 
 .calc-total-row .font-alt {
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-size: 14px;
+  letter-spacing: var(--track-label);
   color: var(--muted);
 }
 
@@ -2673,16 +2698,17 @@ html.skip-preloader .preloader,
 }
 
 .lightbox-caption strong {
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.2em;
+  font-family: var(--font-alt);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: var(--track);
   text-transform: uppercase;
 }
 
 .lightbox-caption span {
   flex: 1;
-  font-size: 11.5px;
-  letter-spacing: 1.5px;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -2804,8 +2830,8 @@ html.skip-preloader .preloader,
   border-radius: 50%;
   color: var(--accent-text);
   font-size: 13px;
-  letter-spacing: 0.12em;
-  text-indent: 0.12em;
+  letter-spacing: var(--track);
+  text-indent: var(--track);
   transition: background 0.35s var(--ease), color 0.35s var(--ease),
     border-color 0.35s var(--ease);
 }
@@ -2843,16 +2869,16 @@ html.skip-preloader .preloader,
 .process-title {
   margin: 0 0 6px;
   font-size: 16px;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--track);
   text-indent: 0;
 }
 
 .process-time {
   margin: 0 0 16px;
   color: var(--accent-text);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-indent: 0.2em;
+  font-size: 12px;
+  letter-spacing: var(--track-label);
+  text-indent: var(--track-label);
   text-transform: uppercase;
 }
 

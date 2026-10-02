@@ -10,7 +10,7 @@ responsiv, dark mode, effektväljare i tre nivåer, preloader, egen 404.
 | Del | Val |
 |---|---|
 | Grund | Vanilla HTML/CSS/JS — inga byggverktyg |
-| Typografi | Georgia (`.font-alt`, uppercase + letter-spacing) + Trebuchet MS (brödtext) |
+| Typografi | Cormorant Garamond (`.font-alt`, rubriker `--track: 0.12em`, etiketter `--track-label: 0.08em`) + Trebuchet MS (brödtext). Georgia är reserv om typsnittet inte laddar |
 | Smooth scroll | Lenis 1.1.14 via CDN — **endast i Cinematic-läget** |
 | Karusell | Swiper 11 via CDN (omdömen) |
 | Scroll-reveals | Egen IntersectionObserver (ersatte WOW.js) |
@@ -130,3 +130,15 @@ crf 33 är gränsen — vid 35 syns suddig text i fasaderna. H.264 (inte AV1/VP9
 ## Browser support
 
 Chrome 90+, Firefox 88+, Safari 14+
+
+## Designanteckning 2026-10-02
+
+På användarens begäran har typografin gjorts mer lättläst: tätare bokstavsavstånd på rubriker (vanligen 0,1–0,12em), viktig text omkring 15–16 px och brödtext 16 px även på mobil. Korta etiketter behåller viss spärrning.
+
+Två bilder skapades med imagegen. `img/koncept-design.jpg` (webbskisser och färgprover) ligger kvar till vänster om Vårt koncept. `img/studio-webbdesign.jpg` finns kvar på disk men används inte längre.
+
+2026-10-02, fyra justeringar (kan backas, se minnet `senaste-andring`):
+- `text-align: justify` bort från intro, hörnstenar och koncept.
+- Teamkorten delar ram: `--team-frame`, proportion 4:5, samma kant.
+- Rubriker är Cormorant Garamond. `--track` 0.12em på rubriker, `--track-label` 0.08em på etiketter.
+- LA-Studio-bilden är `img/studio-borderoak.jpg`, övre delen av `img/work/borderoak.webp` beskuren till 3:2. Filen `studio-webbdesign.jpg` är orörd.
