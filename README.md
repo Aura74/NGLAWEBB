@@ -34,7 +34,7 @@ NGLAWEBB/
     ├── work/                  # Galleriets skärmdumpar (WebP 1280 px)
     ├── logo/                  # Logovarianter (signatur, cirkel, guld) — sparade, används inte just nu
     ├── icons/lagul2.png       # Textloggan (nav, preloader, footer, 404)
-    ├── pepole/                # Team-korten
+    ├── pepole/                # Team-korten. Visas som utklippta PNG:er; .jfif är källorna
     └── lars.jpg, hero-poster.jpg, koncept-mote.jpg, laptop-kod.jpg
 ```
 
@@ -56,7 +56,7 @@ NGLAWEBB/
 | 12 | Kontakt (`#about`) | Om mig med porträtt (`img/lars.jpg`, 148 px + förskjuten guldram), bokningsknapp (stub), kontaktformulär (demo) |
 | 13 | Footer | Textlogga, GitHub + e-postikon, rund till-toppen-knapp (SVG) uppe till höger |
 
-**Tjänster i team-korten:** Design / Utveckling / Synlighet / Support — Dallas-bilderna är medveten charm.
+**Tjänster i team-korten:** Design (`persona_29469`) / Utveckling (`personal_blue`) / Synlighet (`applebla`) / Support (`skadespelaren`). Porträtten är utklippta mot transparent bakgrund så att `--team-frame` syns i både ljust och mörkt läge. Jfif-originalen ligger kvar i `img/pepole/`. De gamla Dallas-PNG:erna (`pngegg - 2024-01-14T…`) ligger också kvar men används inte.
 **E-post:** `lars@lastudio.se` används överallt — **skapa adressen hos domänleverantören före skarp lansering.**
 **SEO:** OG-taggar + twitter-card + JSON-LD ProfessionalService, alla på `https://www.larsasplund.com/` (lastudio.se är bara en parkeringssida hos one.com).
 **Cinematic-extra:** guld scroll-progressbar + filmgrain på heron.
@@ -142,3 +142,5 @@ Två bilder skapades med imagegen. `img/koncept-design.jpg` (webbskisser och fä
 - Teamkorten delar ram: `--team-frame`, proportion 4:5, samma kant.
 - Rubriker är Cormorant Garamond. `--track` 0.12em på rubriker, `--track-label` 0.08em på etiketter.
 - LA-Studio-bilden är `img/studio-borderoak.jpg`, övre delen av `img/work/borderoak.webp` beskuren till 3:2. Filen `studio-webbdesign.jpg` är orörd.
+
+2026-10-10: team-korten bytte bild. Design `persona_29469.png`, Utveckling `personal_blue.png`, Synlighet `applebla.png`, Support `skadespelaren.png`. Studiofonden är borttagen så ramen fungerar i båda temana.
